@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grupo Zero 14</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Righteous&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* Paleta PRINCIPAL */
+      --azul:      #1E44E8;
+      --amarelo:   #F5C518;
+      --vermelho:  #E8241C;
+      --branco:    #ffffff;
+      --texto:     #14171c;
+
+      --display: 'Righteous', system-ui, sans-serif;
+      --corpo:   'Poppins', -apple-system, Segoe UI, Roboto, sans-serif;
+
+      --nav-altura: 92px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--corpo);
+      background: #f4f5f7;
+      color: var(--texto);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 28px;
+    }
+
+    /* ===================== NAVBAR ===================== */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background .3s ease, box-shadow .3s ease, border-color .3s ease;
+    }
+    .navbar.solido {
+      background: var(--branco);
+      border-bottom-color: #ececf0;
+      box-shadow: 0 1px 10px rgba(0, 0, 0, .06);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      height: var(--nav-altura);
+      gap: 20px;
+    }
+
+    /* Grupos de links laterais */
+    .nav-grupo {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      flex: 1;
+    }
+    .nav-grupo.esquerda { justify-content: flex-end; order: 1; }
+    .nav-grupo.direita  { justify-content: flex-start; order: 3; }
+
+    /* Wrapper dos grupos: transparente no desktop, vira dropdown no mobile */
+    .nav-links { display: contents; }
+
+    .nav-grupo a {
+      position: relative;
+      color: var(--branco);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+      letter-spacing: .2px;
+      padding: 6px 0;
+      white-space: nowrap;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, .35);
+      transition: color .2s ease;
+    }
+    .nav-grupo a::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 0; height: 2px;
+      background: var(--vermelho);
+      transition: width .2s ease;
+    }
+    /* Transparente: hover vermelho */
+    .nav-grupo a:hover { color: var(--vermelho); }
+    .nav-grupo a:hover::after { width: 100%; }
+    .nav-grupo a:focus-visible {
+      outline: 2px solid var(--vermelho);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+
+    /* Estado sólido: links escuros, hover/sublinhado azul */
+    .navbar.solido .nav-grupo a {
+      color: var(--texto);
+      text-shadow: none;
+    }
+    .navbar.solido .nav-grupo a::after { background: var(--azul); }
+    .navbar.solido .nav-grupo a:hover { color: var(--azul); }
+    .navbar.solido .nav-grupo a:focus-visible { outline-color: var(--azul); }
+
+    /* Logo central (troca branca <-> preta) */
+    .logo {
+      flex: 0 0 auto;
+      order: 2;
+      display: inline-flex;
+      align-items: center;
+    }
+    .logo img {
+      height: 56px;
+      width: auto;
+      display: block;
+    }
+    .logo .logo-preta  { display: none; }
+    .logo .logo-branca { display: block; }
+    .navbar.solido .logo .logo-branca { display: none; }
+    .navbar.solido .logo .logo-preta  { display: block; }
+
+    /* Botão mobile (hambúrguer) */
+    .menu-toggle {
+      display: none;
+      background: transparent;
+      border: none;
+      color: var(--branco);
+      cursor: pointer;
+      width: 44px; height: 44px;
+      align-items: center; justify-content: center;
+      filter: drop-shadow(0 1px 4px rgba(0,0,0,.4));
+    }
+    .navbar.solido .menu-toggle { color: var(--texto); filter: none; }
+    .menu-toggle svg { display: block; }
+
+    /* ===================== HERO ===================== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      min-height: 100dvh; /* evita saltos com a barra do navegador no mobile */
+      background-image: url('assets/Hero-Desktop.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    /* Tablet: 750px - 1024px */
+    @media (max-width: 1024px) {
+      .hero { background-image: url('assets/Hero-Tablet.png'); }
+    }
+    /* Mobile: < 750px */
+    @media (max-width: 749px) {
+      .hero { background-image: url('assets/Hero-Mobile.png'); }
+    }
+
+    /* ===================== RESPONSIVO ===================== */
+    @media (max-width: 900px) {
+      .nav { justify-content: space-between; }
+      .menu-toggle { display: inline-flex; order: 1; }
+      .logo { order: 2; margin: 0 auto; }
+      .logo-spacer { order: 3; width: 44px; }
+
+      /* Dropdown único: empilha os dois grupos (sem sobreposição) */
+      .nav-links {
+        display: flex;
+        order: 4;
+        flex-direction: column;
+        position: absolute;
+        top: var(--nav-altura);
+        left: 0; right: 0;
+        background: var(--branco);
+        border-bottom: 0;
+        box-shadow: none;
+        padding: 0 28px;
+        max-height: 0; overflow: hidden;
+        transition: max-height .28s ease, padding .28s ease;
+      }
+      .nav-menu.aberto .nav-links {
+        max-height: 480px;
+        padding: 6px 28px 12px;
+        border-bottom: 1px solid #ececf0;
+        box-shadow: 0 12px 20px rgba(0, 0, 0, .10);
+      }
+
+      .nav-grupo {
+        position: static;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0; flex: none;
+        width: 100%;
+      }
+
+      /* Links do menu mobile sempre escuros (fundo branco) */
+      .nav-grupo a {
+        display: block; width: 100%;
+        padding: 14px 0;
+        border-bottom: 1px solid #f0f0f3;
+        font-size: 16px;
+        color: var(--texto);
+        text-shadow: none;
+      }
+      .nav-grupo a::after { display: none; }
+      .nav-grupo a:hover { color: var(--azul); }
+      .nav-grupo.direita a:last-child { border-bottom: 0; }
+    }
+    @media (min-width: 901px) { .logo-spacer { display: none; } }
+
+    /* Espaço temporário só pra visualizar (conteúdo real vem depois) */
+    .placeholder {
+      min-height: 90vh;
+      display: flex; align-items: center; justify-content: center;
+      color: #b8bcc4; font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar" id="navbar" aria-label="Navegação principal">
+    <div class="container nav nav-menu" id="navMenu">
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navMenu">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+
+      <div class="nav-links">
+        <div class="nav-grupo esquerda">
+          <a href="#biografia">Biografia</a>
+          <a href="#musicas">Músicas</a>
+          <a href="#agenda">Agenda</a>
+        </div>
+        <div class="nav-grupo direita">
+          <a href="#fotos">Fotos</a>
+          <a href="#contato">Contato</a>
+          <a href="#feedbacks">Feedbacks</a>
+        </div>
+      </div>
+
+      <a href="#" class="logo" aria-label="Grupo Zero 14 - início">
+        <img class="logo-branca" src="assets/logo-branca-nav.png" alt="Grupo Zero 14" />
+        <img class="logo-preta"  src="assets/logo-preta-nav.png"  alt="Grupo Zero 14" />
+      </a>
+
+      <span class="logo-spacer" aria-hidden="true"></span>
+    </div>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <section class="hero" id="inicio" role="img" aria-label="Grupo Zero 14 - É no pagode do Zero 14"></section>
+
+  <!-- Espaço temporário (só pra testar o scroll da navbar; conteúdo real vem depois) -->
+  <div class="placeholder">Conteúdo do site virá aqui &mdash; próxima etapa</div>
+
+  <script>
+    // Menu mobile
+    const toggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('navMenu');
+    toggle.addEventListener('click', () => {
+      const aberto = menu.classList.toggle('aberto');
+      toggle.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+      toggle.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
+    });
+    menu.querySelectorAll('a').forEach(a =>
+      a.addEventListener('click', () => {
+        menu.classList.remove('aberto');
+        toggle.setAttribute('aria-expanded', 'false');
+      })
+    );
+
+    // Navbar: transparente sobre o hero -> sólida ao passar da imagem
+    const navbar = document.getElementById('navbar');
+    const hero = document.getElementById('inicio');
+    function atualizarNavbar() {
+      const gatilho = hero.offsetHeight - navbar.offsetHeight;
+      navbar.classList.toggle('solido', window.scrollY > gatilho);
+    }
+    window.addEventListener('scroll', atualizarNavbar, { passive: true });
+    window.addEventListener('resize', atualizarNavbar);
+    window.addEventListener('load', atualizarNavbar);
+    atualizarNavbar();
+  </script>
+
+</body>
+</html>
