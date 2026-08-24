@@ -281,6 +281,22 @@
     .video-facade:focus-visible { outline: 3px solid var(--amarelo); outline-offset: 3px; }
     .video-play svg { margin-left: 5px; }
 
+    /* Mobile: vídeo + marquee no topo e player bem menor */
+    @media (max-width: 749px) {
+      .video {
+        align-items: flex-start;
+        padding: calc(var(--nav-altura) + 20px) 20px 0;
+      }
+      .video-wrap {
+        max-width: 260px;
+        margin-bottom: 0;
+      }
+      .video-marquee {
+        top: calc(var(--nav-altura) + 94px);   /* atrás do player, no topo */
+      }
+      .marquee-track span { font-size: clamp(30px, 9vw, 46px); }
+    }
+
     /* ===================== RESPONSIVO ===================== */
     @media (max-width: 900px) {
       .nav { justify-content: space-between; }
@@ -498,8 +514,9 @@
     .contato-head { text-align: center; margin-bottom: 40px; }
     .contato-head h2 { font-family: var(--display); font-size: clamp(40px, 7vw, 80px); color: var(--tinta); text-transform: uppercase; line-height: 1; }
 
-    .contato-cols { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: center; }
-    .contato-foto img { display: block; width: 100%; height: auto; filter: drop-shadow(0 14px 22px rgba(20, 23, 28, .18)); }
+    .contato-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+    .contato-foto { max-width: 360px; margin: 0 auto; }
+    .contato-foto img { display: block; width: 100%; height: auto; filter: drop-shadow(4px 6px 0 rgba(20, 23, 28, .22)) drop-shadow(0 10px 16px rgba(20, 23, 28, .18)); }
 
     .contato-info { display: flex; flex-direction: column; gap: 30px; }
     .info-tag {
@@ -530,7 +547,7 @@
 
     @media (max-width: 780px) {
       .contato-cols { grid-template-columns: 1fr; gap: 20px; }
-      .contato-foto { max-width: 460px; margin: 0 auto; }
+      .contato-foto { max-width: 300px; margin: 0 auto; }
       .info-tag { transform: rotate(-1deg); }
       .contato-info { align-items: center; }
       .contato-redes { text-align: center; }
@@ -873,7 +890,7 @@
         <button class="agenda-seta" id="agendaPrev" type="button" aria-label="Shows anteriores">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
         </button>
-        <a href="#" class="btn-vermais">Ver mais</a>
+        <a href="shows.html" class="btn-vermais">Ver mais</a>
         <button class="agenda-seta" id="agendaNext" type="button" aria-label="Próximos shows">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
@@ -921,8 +938,8 @@
       <div class="contato-cols">
         <div class="contato-foto">
           <picture>
-            <source srcset="assets/grupo-web.webp" type="image/webp" />
-            <img src="assets/grupo-web.png" width="1000" height="893" alt="Integrantes do Grupo Zero 14" loading="lazy" />
+            <source srcset="assets/grupo-recorte.webp" type="image/webp" />
+            <img src="assets/grupo-recorte.png" width="543" height="749" alt="Integrantes do Grupo Zero 14" loading="lazy" />
           </picture>
         </div>
         <div class="contato-info">
