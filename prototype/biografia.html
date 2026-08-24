@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biografia — Grupo Zero 14</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --azul: #1E27EB; --amarelo: #F5C518; --vermelho: #E12E27;
+      --tinta: #14171c; --branco: #fff;
+      --display: 'Kalam', 'Comic Sans MS', cursive;
+      --corpo: 'Poppins', -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--corpo); background: var(--azul); color: #fff; }
+
+    /* topbar */
+    .topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 24px; background: transparent;
+      transition: background .3s ease, box-shadow .3s ease;
+    }
+    .topbar.solido { background: #fff; box-shadow: 0 1px 12px rgba(0, 0, 0, .1); }
+    .topbar img { height: 42px; width: auto; display: block; }
+    .topbar .logo-preta { display: none; }
+    .topbar.solido .logo-branca { display: none; }
+    .topbar.solido .logo-preta { display: block; }
+    .voltar {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: #fff; text-decoration: none; font-weight: 600; font-size: 14px;
+      border: 2px solid rgba(255, 255, 255, .35); border-radius: 12px 18px 12px 16px;
+      padding: 9px 18px; transition: background .2s, color .2s, border-color .2s;
+    }
+    .topbar.solido .voltar { color: var(--tinta); border-color: rgba(20, 23, 28, .25); }
+    .voltar:hover { background: var(--amarelo); color: var(--tinta); border-color: var(--amarelo); }
+
+    /* biografia: imagem 100% width (fundo) + texto à direita (35%) */
+    .bio-page { position: relative; }
+    .bio-img { display: block; width: 100%; }
+    .bio-img img { display: block; width: 100%; height: auto; }
+    .bio-txt {
+      position: absolute; top: 0; right: 0; height: 100%;
+      width: 40%; min-width: 360px;
+      display: flex; flex-direction: column;
+      padding: 20vh clamp(30px, 4vw, 64px);
+    }
+    /* título (kicker/h1/squiggle) fixo em cima, redes fixas embaixo, só o corpo rola */
+    .bio-corpo {
+      flex: 1 1 auto; min-height: 0;
+      overflow-y: auto;
+      margin: 20px 0;
+      padding-right: 8px;
+      scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, .45) transparent;
+    }
+    .bio-corpo::-webkit-scrollbar { width: 8px; }
+    .bio-corpo::-webkit-scrollbar-track { background: transparent; }
+    .bio-corpo::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .45); border-radius: 4px; }
+    .bio-txt .kicker { font-weight: 600; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--amarelo); }
+    .bio-txt h1 { font-family: var(--display); font-size: clamp(48px, 7vw, 92px); text-transform: uppercase; line-height: 1; margin-top: 6px; }
+    .bio-txt .squiggle { display: block; width: 210px; height: 14px; margin: 10px 0 26px; }
+    .bio-txt p { color: rgba(255, 255, 255, .92); line-height: 1.8; margin-bottom: 18px; }
+
+    .bio-redes { margin-top: 4px; }
+    .bio-redes span { font-family: var(--display); font-size: 18px; text-transform: uppercase; display: block; margin-bottom: 12px; }
+    .bio-redes .lista { display: flex; gap: 14px; }
+    .bio-redes a {
+      width: 48px; height: 48px; border-radius: 13px 18px 13px 16px;
+      background: #fff; color: var(--tinta); border: 3px solid var(--tinta);
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, .35);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .15s ease, background .15s ease, color .15s ease;
+    }
+    .bio-redes a:nth-child(odd) { transform: rotate(-3deg); }
+    .bio-redes a:nth-child(even) { transform: rotate(3deg); }
+    .bio-redes a:hover { transform: translateY(-3px) rotate(0deg); background: var(--tinta); color: #fff; }
+    .bio-redes svg { width: 23px; height: 23px; }
+
+    @media (max-width: 760px) {
+      .bio-txt {
+        position: static; width: 100%; min-width: 0; height: auto;
+        padding: 44px 24px 60px;
+        background: #1E27EB url('assets/bg-blue-texture.jpg') center / cover;
+      }
+    }
+
+    /* footer */
+    .rodape { position: relative; background: var(--azul); color: #fff; padding: 22px 24px; }
+    .rodape-inner { max-width: 1240px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 26px; flex-wrap: nowrap; }
+    .rodape-copy { text-align: right; font-size: 13px; line-height: 1.45; color: rgba(255, 255, 255, .9); }
+    .rodape-copy strong { display: block; font-family: var(--display); font-size: 16px; color: #fff; }
+    .rodape-divisor { width: 2px; height: 42px; background: rgba(255, 255, 255, .3); }
+    .rodape-dev { display: flex; align-items: center; gap: 12px; }
+    .rodape-logo { height: 48px; width: auto; display: block; }
+    .rodape-dev-txt { font-size: 13px; line-height: 1.45; color: rgba(255, 255, 255, .9); }
+    .rodape-dev-txt strong { display: block; font-family: var(--display); font-size: 18px; color: #fff; }
+    @media (max-width: 560px) {
+      .rodape-inner { gap: 14px; }
+      .rodape-copy, .rodape-dev-txt { font-size: 11px; }
+      .rodape-copy strong, .rodape-dev-txt strong { font-size: 13px; }
+      .rodape-logo { height: 38px; }
+      .rodape-divisor { height: 34px; }
+    }
+
+    /* ===== INTEGRANTES ===== */
+    .integrantes { position: relative; overflow: hidden; background: #fff; padding: 150px 0 102px; }
+    .integrantes::before {
+      content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: .05;
+    }
+    .integ-marquee {
+      position: absolute; z-index: 0;              /* atrás dos cards */
+      top: 50%; left: -8%; right: -8%;
+      transform: translateY(-50%) rotate(-4deg);   /* diagonal */
+      overflow: hidden; padding: 18px 0;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    }
+    .integ-track { display: inline-flex; white-space: nowrap; will-change: transform; animation: integ-scroll 26s linear infinite; }
+    .integ-track span {
+      font-family: var(--display); font-style: italic;
+      font-size: clamp(40px, 6.5vw, 78px); text-transform: uppercase;
+      letter-spacing: 2px; padding-right: 40px; line-height: 1;
+    }
+    .integ-track span:nth-child(odd)  { color: var(--azul); }
+    .integ-track span:nth-child(even) { color: transparent; -webkit-text-stroke: 2.4px var(--azul); text-stroke: 2.4px var(--azul); }
+    @keyframes integ-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    .integ-grid {
+      position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; padding: 0 24px;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px;
+    }
+    .integrante {
+      text-align: center; background: #fff;
+      border: 3px solid var(--tinta);
+      border-radius: 18px 28px 18px 26px;
+      box-shadow: 6px 6px 0 var(--tinta);
+      padding: 12px 12px 22px;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .integrante:nth-child(odd)  { transform: rotate(-1.3deg); }
+    .integrante:nth-child(even) { transform: rotate(1.3deg); }
+    .integrante:hover { transform: rotate(0deg) translateY(-6px); box-shadow: 9px 9px 0 var(--tinta); }
+    .integrante .foto {
+      aspect-ratio: 3 / 4; border-radius: 12px; overflow: hidden; background: #e9e9ee;
+    }
+    .integrante .foto img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .35s ease; }
+    .integrante:hover .foto img { transform: scale(1.05); }
+    .integrante .nome { font-family: var(--display); color: var(--azul); font-size: 24px; text-transform: uppercase; margin-top: 14px; line-height: 1; }
+    .integrante .papel {
+      display: inline-block; margin-top: 8px;
+      background: var(--azul); color: #fff;
+      font-size: 11px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase;
+      padding: 3px 12px; border-radius: 8px 12px 8px 10px;
+    }
+    .integrante .desc { font-size: 13px; line-height: 1.5; color: #5b5b68; margin-top: 12px; padding: 0 4px; }
+    @media (max-width: 860px) { .integ-grid { grid-template-columns: repeat(2, 1fr); gap: 22px; } }
+    @media (max-width: 460px) { .integ-grid { grid-template-columns: 1fr; max-width: 300px; } }
+
+    /* ===== DEPOIMENTOS ===== */
+    .depoimentos { position: relative; background: #fff; padding: 30px 24px 96px; }
+    .depo {
+      position: relative; max-width: 760px; margin: 0 auto;
+      background: #fff; color: var(--tinta);
+      border: 3px solid var(--tinta); border-radius: 28px 44px 28px 40px;
+      box-shadow: 8px 8px 0 var(--tinta);
+      padding: 56px 8% 74px; text-align: center;
+    }
+    .depo .aspas { position: absolute; top: 2px; left: 26px; font-family: var(--display); font-size: 96px; line-height: 1; color: rgba(30, 39, 235, .16); pointer-events: none; }
+    .depo-txt { font-family: var(--mao); font-size: clamp(20px, 2.4vw, 27px); line-height: 1.5; transition: opacity .35s ease; }
+    .depo-quem { font-weight: 700; color: var(--azul); margin-top: 18px; font-size: 17px; transition: opacity .35s ease; }
+    .depo-foto {
+      position: absolute; bottom: -42px; left: 50%; transform: translateX(-50%);
+      width: 84px; height: 84px; border-radius: 50%; overflow: hidden;
+      border: 4px solid #fff; box-shadow: 0 8px 22px rgba(0, 0, 0, .28); background: #e9e9ee;
+    }
+    .depo-foto img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; transition: opacity .35s ease; }
+    .depo.trocando .depo-txt, .depo.trocando .depo-quem, .depo.trocando .depo-foto img { opacity: 0; }
+    .depo-dots { display: flex; justify-content: center; gap: 10px; margin-top: 64px; }
+    .depo-dots button {
+      width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--tinta);
+      background: transparent; cursor: pointer; padding: 0; transition: background .2s, transform .2s;
+    }
+    .depo-dots button.ativo { background: var(--azul); border-color: var(--azul); transform: scale(1.15); }
+
+    @media (prefers-reduced-motion: reduce) { * { transition: none !important; scroll-behavior: auto !important; } .integ-track { animation: none !important; } }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <a href="index.html" aria-label="Grupo Zero 14 - início">
+      <img class="logo-branca" src="assets/logo-branca-nav.png" alt="Grupo Zero 14" />
+      <img class="logo-preta" src="assets/logo-preta-nav.png" alt="Grupo Zero 14" />
+    </a>
+    <a href="index.html" class="voltar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      Voltar ao site
+    </a>
+  </header>
+
+  <main class="bio-page">
+    <picture class="bio-img">
+      <source media="(max-width: 549px)" srcset="assets/biografia-assets/biografia-small-web.jpg" />
+      <source media="(max-width: 760px)" srcset="assets/biografia-assets/biografia-mobile-web.jpg" />
+      <source media="(max-width: 1024px)" srcset="assets/biografia-assets/biografia-tablet-web.jpg" />
+      <img src="assets/biografia-assets/biografia-desktop-web.jpg" alt="Grupo Zero 14" />
+    </picture>
+
+    <div class="bio-txt">
+      <span class="kicker">Conheça o grupo</span>
+      <h1>Biografia</h1>
+      <svg class="squiggle" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M3 9 C 45 2, 78 12, 118 7 S 196 2, 234 8 S 286 5, 297 7" fill="none" stroke="#E12E27" stroke-width="4.5" stroke-linecap="round"/>
+      </svg>
+
+      <div class="bio-corpo">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+      <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.</p>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+      <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.</p>
+      <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse.</p>
+      <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.</p>
+      </div>
+
+      <div class="bio-redes">
+        <span>Nos siga nas redes</span>
+        <div class="lista">
+          <a href="https://www.instagram.com/grupozero14/" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 1.8.25 2.2.42.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.17.4.36 1 .42 2.2.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 1.8-.42 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.17-1 .36-2.2.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-1.8-.25-2.2-.42a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.17-.4-.36-1-.42-2.2-.06-1.3-.07-1.7-.07-4.9s0-3.6.07-4.9c.06-1.2.25-1.8.42-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.17 1-.36 2.2-.42C8.4 2.2 8.8 2.2 12 2.2Zm0 1.8c-3.1 0-3.5 0-4.7.07-.9.04-1.4.2-1.7.32-.43.17-.74.37-1.06.7-.32.31-.52.62-.7 1.05-.12.3-.28.8-.32 1.7C4 8.5 4 8.9 4 12s0 3.5.07 4.7c.04.9.2 1.4.32 1.7.17.43.37.74.7 1.06.31.32.62.52 1.05.7.3.12.8.28 1.7.32 1.2.06 1.6.07 4.7.07s3.5 0 4.7-.07c.9-.04 1.4-.2 1.7-.32.43-.17.74-.37 1.06-.7.32-.31.52-.62.7-1.05.12-.3.28-.8.32-1.7.06-1.2.07-1.6.07-4.7s0-3.5-.07-4.7c-.04-.9-.2-1.4-.32-1.7a2.8 2.8 0 0 0-.7-1.06 2.8 2.8 0 0 0-1.05-.7c-.3-.12-.8-.28-1.7-.32C15.5 4 15.1 4 12 4Zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8Zm0 1.8a3.1 3.1 0 1 0 0 6.2 3.1 3.1 0 0 0 0-6.2Zm5.1-.9a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0Z"/></svg>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.1 1.5 3.4 3.5 3.6v2.4c-1.2.1-2.3-.3-3.5-1v6.1c0 3.6-2.6 5.9-5.7 5.9A5.7 5.7 0 0 1 5 14.4c0-3.4 2.9-5.7 6.2-5.3v2.6c-.4-.1-.9-.2-1.3-.2-1.5 0-2.6 1.1-2.6 2.7 0 1.6 1.1 2.7 2.6 2.7 1.6 0 2.7-1.2 2.7-2.9V3h1.9Z"/></svg>
+          </a>
+          <a href="#" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.7-1.7C19.3 5.2 12 5.2 12 5.2s-7.3 0-8.9.4a2.5 2.5 0 0 0-1.7 1.7C1 8.8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.7 1.7c1.6.4 8.9.4 8.9.4s7.3 0 8.9-.4a2.5 2.5 0 0 0 1.7-1.7c.4-1.5.4-4.7.4-4.7ZM9.8 15.1V8.9l5.4 3.1-5.4 3.1Z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== INTEGRANTES ===== -->
+  <section class="integrantes" id="integrantes">
+    <div class="integ-marquee" aria-hidden="true">
+      <div class="integ-track">
+        <span>Integrantes •</span><span>Integrantes •</span><span>Integrantes •</span>
+        <span>Integrantes •</span><span>Integrantes •</span><span>Integrantes •</span>
+        <span>Integrantes •</span><span>Integrantes •</span><span>Integrantes •</span>
+        <span>Integrantes •</span><span>Integrantes •</span><span>Integrantes •</span>
+      </div>
+    </div>
+
+    <div class="integ-grid">
+      <div class="integrante">
+        <div class="foto"><img src="assets/biografia-assets/integrantes/1-web.jpg" width="760" height="1018" alt="Integrante do Grupo Zero 14" loading="lazy" /></div>
+        <div class="nome">Fulano</div>
+        <span class="papel">Voz e violão</span>
+        <p class="desc">A voz que puxa o coro e comanda o pagode do começo ao fim.</p>
+      </div>
+      <div class="integrante">
+        <div class="foto"><img src="assets/biografia-assets/integrantes/2-web.jpg" width="760" height="1018" alt="Integrante do Grupo Zero 14" loading="lazy" /></div>
+        <div class="nome">Ciclano</div>
+        <span class="papel">Cavaquinho</span>
+        <p class="desc">O suingue no cavaco que dá o tempero e o balanço do grupo.</p>
+      </div>
+      <div class="integrante">
+        <div class="foto"><img src="assets/biografia-assets/integrantes/3-web.jpg" width="760" height="1018" alt="Integrante do Grupo Zero 14" loading="lazy" /></div>
+        <div class="nome">Beltrano</div>
+        <span class="papel">Pandeiro</span>
+        <p class="desc">Marca o ritmo e não deixa a roda de samba parar nunca.</p>
+      </div>
+      <div class="integrante">
+        <div class="foto"><img src="assets/biografia-assets/integrantes/4-web.jpg" width="760" height="1018" alt="Integrante do Grupo Zero 14" loading="lazy" /></div>
+        <div class="nome">Deltrano</div>
+        <span class="papel">Percussão</span>
+        <p class="desc">A batida firme na percussão que faz todo mundo dançar.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DEPOIMENTOS ===== -->
+  <section class="depoimentos" id="depoimentos">
+    <div class="depo" id="depoCard">
+      <span class="aspas" aria-hidden="true">&ldquo;</span>
+      <p class="depo-txt" id="depoTxt">"Quando a gente começou a viver só de música já foi a maior conquista que a gente podia imaginar."</p>
+      <div class="depo-quem" id="depoQuem">— Fulano</div>
+      <div class="depo-foto"><img id="depoFoto" src="assets/biografia-assets/integrantes/1-web.jpg" alt="Fulano" /></div>
+    </div>
+    <div class="depo-dots" id="depoDots" aria-hidden="true"></div>
+  </section>
+
+  <footer class="rodape">
+    <div class="rodape-inner">
+      <div class="rodape-copy">
+        <strong>© 2026 Grupo Zero 14</strong>
+        Todos os direitos reservados
+      </div>
+      <div class="rodape-divisor" aria-hidden="true"></div>
+      <div class="rodape-dev">
+        <img class="rodape-logo" src="assets/nebula-web.png" alt="Nebula" />
+        <div class="rodape-dev-txt">
+          Desenvolvido por
+          <strong>Nebula</strong>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Topbar: transparente sobre a imagem -> sólida ao rolar
+    const topbar = document.querySelector('.topbar');
+    const bioPage = document.querySelector('.bio-page');
+    function atualizarTopbar() {
+      const gatilho = bioPage ? bioPage.offsetHeight - topbar.offsetHeight : 200;
+      topbar.classList.toggle('solido', window.scrollY > gatilho);
+    }
+    window.addEventListener('scroll', atualizarTopbar, { passive: true });
+    window.addEventListener('resize', atualizarTopbar);
+    window.addEventListener('load', atualizarTopbar);
+    const bioImg = bioPage && bioPage.querySelector('img');
+    if (bioImg && !bioImg.complete) bioImg.addEventListener('load', atualizarTopbar);
+    atualizarTopbar();
+
+    // Carrossel de depoimentos (troca sozinho a cada 5s)
+    const depoimentos = [
+      { q: '"Quando a gente começou a viver só de música já foi a maior conquista que a gente podia imaginar."', nome: '— Fulano', foto: 'assets/biografia-assets/integrantes/1-web.jpg' },
+      { q: '"Cada roda de samba é uma família nova que a gente ganha pelo caminho."', nome: '— Ciclano', foto: 'assets/biografia-assets/integrantes/2-web.jpg' },
+      { q: '"Tocar pra galera cantando junto é o que move o Zero 14 todo dia."', nome: '— Beltrano', foto: 'assets/biografia-assets/integrantes/3-web.jpg' },
+      { q: '"A gente leva o pagode de raiz com respeito e muita alegria pra todo canto."', nome: '— Deltrano', foto: 'assets/biografia-assets/integrantes/4-web.jpg' }
+    ];
+    const dCard = document.getElementById('depoCard');
+    const dTxt = document.getElementById('depoTxt');
+    const dQuem = document.getElementById('depoQuem');
+    const dFoto = document.getElementById('depoFoto');
+    const dDots = document.getElementById('depoDots');
+    let dIdx = 0, dTimer = null;
+
+    depoimentos.forEach((_, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('aria-label', 'Depoimento ' + (i + 1));
+      if (i === 0) b.classList.add('ativo');
+      b.addEventListener('click', () => { mostrar(i); reiniciar(); });
+      dDots.appendChild(b);
+    });
+
+    function mostrar(i) {
+      dIdx = i;
+      dCard.classList.add('trocando');
+      setTimeout(() => {
+        const d = depoimentos[i];
+        dTxt.textContent = d.q; dQuem.textContent = d.nome;
+        dFoto.src = d.foto; dFoto.alt = d.nome.replace('— ', '');
+        [...dDots.children].forEach((b, j) => b.classList.toggle('ativo', j === i));
+        dCard.classList.remove('trocando');
+      }, 350);
+    }
+    const proximo = () => mostrar((dIdx + 1) % depoimentos.length);
+    function reiniciar() { clearInterval(dTimer); dTimer = setInterval(proximo, 5000); }
+
+    reiniciar();
+    dCard.addEventListener('mouseenter', () => clearInterval(dTimer));
+    dCard.addEventListener('mouseleave', reiniciar);
+  </script>
+
+</body>
+</html>

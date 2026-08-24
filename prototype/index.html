@@ -4,20 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Grupo Zero 14</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Righteous&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
-      /* Paleta PRINCIPAL */
-      --azul:      #1E44E8;
+      /* Paleta PRINCIPAL (Zero 14) */
+      --azul:      #1E27EB;
       --amarelo:   #F5C518;
-      --vermelho:  #E8241C;
+      --vermelho:  #E12E27;
+      --verde:     #22C55E;
       --branco:    #ffffff;
       --texto:     #14171c;
 
-      --display: 'Righteous', system-ui, sans-serif;
+      --display: 'Kalam', 'Comic Sans MS', cursive;   /* estilo giz / manuscrito */
       --corpo:   'Poppins', -apple-system, Segoe UI, Roboto, sans-serif;
+      --mao:     'Patrick Hand', 'Comic Sans MS', cursive;
+      --tinta:   #14171c;                              /* contorno "marcador" */
 
       --nav-altura: 92px;
     }
@@ -155,10 +159,127 @@
     @media (max-width: 1024px) {
       .hero { background-image: url('assets/Hero-Tablet.png'); }
     }
-    /* Mobile: < 750px */
+    /* Mobile: 550px - 749px */
     @media (max-width: 749px) {
       .hero { background-image: url('assets/Hero-Mobile.png'); }
     }
+    /* Small: < 550px */
+    @media (max-width: 549px) {
+      .hero { background-image: url('assets/Hero-Small.png'); }
+    }
+
+    /* ===================== VÍDEO ===================== */
+    .video {
+      position: relative;
+      overflow: hidden;
+      min-height: 100vh;
+      min-height: 100dvh;
+      background-image: url('assets/Video-Desktop.png');
+      background-size: cover;
+      background-position: center bottom;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: flex-end;      /* vídeo abaixo */
+      justify-content: center;
+      padding: 110px 24px 0;
+    }
+
+    /* Marquee "ASSISTA AGORA" rolando atrás do vídeo */
+    .video-marquee {
+      position: absolute;
+      left: -8%; right: -8%;                       /* extrapola pras bordas na inclinação */
+      top: 70%;
+      transform: translateY(-50%) rotate(-5deg);   /* inclinada */
+      overflow: hidden;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .marquee-track {
+      display: inline-flex;
+      white-space: nowrap;
+      will-change: transform;
+      animation: marquee-scroll 20s linear infinite;
+    }
+    .marquee-track span {
+      font-family: var(--display);
+      font-size: clamp(38px, 6.5vw, 76px);
+      line-height: 1;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      padding-right: 44px;
+    }
+    /* alterna: uma vazada, outra normal */
+    .marquee-track span:nth-child(odd) {
+      color: transparent;
+      -webkit-text-stroke: 1.6px rgba(30, 39, 235, .7);
+      text-stroke: 1.6px rgba(30, 39, 235, .7);
+    }
+    .marquee-track span:nth-child(even) {
+      color: var(--azul);
+    }
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    @media (max-width: 1024px) {
+      .video { background-image: url('assets/Video-Tablet.png'); }
+    }
+    @media (max-width: 749px) {
+      .video { background-image: url('assets/Video-Mobile.png'); }
+    }
+    @media (max-width: 549px) {
+      .video { background-image: url('assets/Video-Small.png'); }
+    }
+    .video-wrap {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 540px;
+      margin-bottom: 5%;
+      aspect-ratio: 16 / 9;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, .35);
+      background: #000;
+    }
+    .video-wrap iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border: 0;
+    }
+    /* Capa (facade) do vídeo: carrega o player só ao clicar */
+    .video-facade {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      border: 0;
+      cursor: pointer;
+      background: #000;
+      display: block;
+    }
+    .video-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .video-play {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 84px; height: 84px;
+      border-radius: 50%;
+      background: var(--vermelho);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .45);
+      transition: transform .2s ease;
+    }
+    .video-facade:hover .video-play,
+    .video-facade:focus-visible .video-play { transform: translate(-50%, -50%) scale(1.08); }
+    .video-facade:focus-visible { outline: 3px solid var(--amarelo); outline-offset: 3px; }
+    .video-play svg { margin-left: 5px; }
 
     /* ===================== RESPONSIVO ===================== */
     @media (max-width: 900px) {
@@ -212,15 +333,363 @@
     }
     @media (min-width: 901px) { .logo-spacer { display: none; } }
 
-    /* Espaço temporário só pra visualizar (conteúdo real vem depois) */
-    .placeholder {
-      min-height: 90vh;
-      display: flex; align-items: center; justify-content: center;
-      color: #b8bcc4; font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
+    /* ===================== NÚMEROS (SEÇÃO PRETA) ===================== */
+    .stats {
+      position: relative;
+      overflow: hidden;
+      background: var(--azul);
+      color: var(--branco);
+      padding: 30px 24px;                  /* faixa fina */
     }
+    /* textura de grão (ruído SVG, CSS puro) */
+    .stats::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: .12;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .stats-inner {
+      max-width: 1160px; margin: 0 auto;
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: auto 1.6fr;   /* texto | dados */
+      gap: 40px;
+      align-items: center;
+    }
+    .stats-titulo { text-align: left; }
+    .stats-kicker {
+      font-weight: 600; font-size: 12px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--amarelo);
+    }
+    .stats-titulo h2 {
+      font-family: var(--display);
+      font-size: clamp(20px, 2.4vw, 28px);
+      text-transform: uppercase; letter-spacing: 1px; margin-top: 4px;
+      line-height: 1.05;
+    }
+    /* dados: uma linha só */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .stat { text-align: center; padding: 4px 8px; position: relative; }
+    .stat:not(:first-child)::before {
+      content: ""; position: absolute; left: 0; top: 50%;
+      transform: translateY(-50%); width: 0; height: 56%;
+      border-left: 2px dashed rgba(255, 255, 255, .32);
+    }
+    .stat-icone { display: none; }        /* faixa enxuta: sem ícones */
+    .stat-num { font-family: var(--display); font-size: clamp(26px, 3vw, 36px); line-height: 1; color: var(--branco); }
+    .stat-label {
+      margin-top: 5px; font-size: 11px; font-weight: 500;
+      letter-spacing: .4px; color: rgba(255, 255, 255, .82); text-transform: uppercase;
+    }
+    @media (max-width: 780px) {
+      .stats-inner { grid-template-columns: 1fr; gap: 20px; }
+      .stats-titulo { text-align: center; }
+    }
+    @media (max-width: 460px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 18px 8px; }
+      .stat:nth-child(3)::before { display: none; } /* remove divisor no início da 2ª linha */
+    }
+
+    /* ===================== AGENDA ===================== */
+    .agenda { background: #faf8f2; padding: 90px 24px; }
+    .agenda-inner { max-width: 1220px; margin: 0 auto; }
+    .agenda-head { text-align: center; margin-bottom: 46px; }
+    .agenda-kicker {
+      font-weight: 600; font-size: 13px; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--vermelho);
+    }
+    .agenda-head h2 {
+      font-family: var(--display);
+      font-size: clamp(40px, 7vw, 84px);
+      color: var(--azul); text-transform: uppercase; letter-spacing: 1px;
+      line-height: 1; margin-top: 8px;
+    }
+
+    .agenda-track {
+      display: flex; gap: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 10px 4px 22px;
+      scrollbar-width: none;
+    }
+    .agenda-track::-webkit-scrollbar { display: none; }
+
+    .show-card {
+      flex: 0 0 244px;
+      scroll-snap-align: start;
+      min-height: 336px;
+      display: flex; flex-direction: column;
+      padding: 30px 24px 26px;
+      border: 3px solid var(--tinta);
+      border-radius: 26px 44px 26px 42px;         /* cantos "à mão" */
+      box-shadow: 7px 7px 0 var(--tinta);         /* sombra dura (adesivo) */
+      color: #fff; text-decoration: none;
+      opacity: 0;
+      transform: rotate(-1.4deg);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)'/%3E%3C/svg%3E");
+      background-size: 150px;
+      background-blend-mode: soft-light;           /* giz sobre a cor */
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .show-card:nth-child(odd)  { background-color: var(--azul); }
+    .show-card:nth-child(even) { background-color: #0f1442; border-radius: 44px 26px 42px 26px; transform: rotate(1.4deg); }
+    .show-card:hover { transform: rotate(0deg) translateY(-6px); box-shadow: 10px 10px 0 var(--tinta); }
+    .show-card:focus-visible { outline: 3px solid var(--amarelo); outline-offset: 3px; }
+
+    .show-mes { text-align: center; font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--amarelo); }
+    .show-evento { font-family: var(--mao); text-align: center; font-size: 19px; margin-top: 6px; min-height: 44px; color: #fff; }
+    .show-dia { text-align: center; font-family: var(--display); font-size: 82px; line-height: 1; margin: 10px 0 auto; }
+    .show-local { border-top: 2px dashed rgba(255, 255, 255, .42); padding-top: 14px; margin-top: 16px; }
+    .show-uf { font-family: var(--display); font-size: 30px; line-height: 1; }
+    .show-cidade { display: flex; align-items: center; gap: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: .5px; color: rgba(255, 255, 255, .85); margin-top: 5px; }
+    .show-cidade svg { color: var(--vermelho); flex: 0 0 auto; }
+
+    /* entrada em fade com stagger */
+    .agenda-track.visivel .show-card { animation: cardFade .5s ease forwards; }
+    .agenda-track.visivel .show-card:nth-child(1) { animation-delay: .04s; }
+    .agenda-track.visivel .show-card:nth-child(2) { animation-delay: .11s; }
+    .agenda-track.visivel .show-card:nth-child(3) { animation-delay: .18s; }
+    .agenda-track.visivel .show-card:nth-child(4) { animation-delay: .25s; }
+    .agenda-track.visivel .show-card:nth-child(5) { animation-delay: .32s; }
+    .agenda-track.visivel .show-card:nth-child(6) { animation-delay: .39s; }
+    @keyframes cardFade { from { opacity: 0; } to { opacity: 1; } }
+
+    .agenda-controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 34px; }
+    .agenda-seta {
+      width: 50px; height: 50px; border-radius: 50%;
+      border: 3px solid var(--tinta); background: #fff; color: var(--azul);
+      box-shadow: 3px 3px 0 var(--tinta);
+      display: flex; align-items: center; justify-content: center; cursor: pointer;
+      transition: background .2s, color .2s, transform .2s, box-shadow .2s;
+    }
+    .agenda-seta:hover { background: var(--amarelo); color: var(--tinta); transform: translateY(-2px); box-shadow: 5px 5px 0 var(--tinta); }
+    .agenda-seta:disabled { opacity: .3; cursor: default; box-shadow: none; }
+    .btn-vermais {
+      background: var(--azul); color: #fff; text-decoration: none;
+      font-family: var(--display); font-size: 21px; letter-spacing: .5px; text-transform: uppercase;
+      padding: 11px 34px;
+      border: 3px solid var(--tinta); border-radius: 16px 26px 18px 24px;
+      box-shadow: 5px 5px 0 var(--tinta);
+      transform: rotate(-1.2deg);
+      transition: background .2s, transform .2s, box-shadow .2s;
+    }
+    .btn-vermais:hover { background: #171dc0; transform: rotate(0deg) translateY(-2px); box-shadow: 7px 7px 0 var(--tinta); }
+
+    /* rabisco embaixo do título */
+    .squiggle { display: block; width: min(240px, 55%); height: 14px; margin: 6px auto 0; }
+    @media (max-width: 600px) { .show-card { flex-basis: 80%; } }
+
+    /* ===================== CONTATO ===================== */
+    .contato {
+      position: relative;
+      overflow: hidden;
+      padding: 78px 24px 84px;
+      background: linear-gradient(180deg, #ffffff 0%, #f3f3f6 100%);   /* branco -> off-white bem leve */
+    }
+    .contato::before {
+      content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: .08;
+    }
+    .contato-inner { position: relative; z-index: 1; max-width: 1140px; margin: 0 auto; }
+    .contato-head { text-align: center; margin-bottom: 40px; }
+    .contato-head h2 { font-family: var(--display); font-size: clamp(40px, 7vw, 80px); color: var(--tinta); text-transform: uppercase; line-height: 1; }
+
+    .contato-cols { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: center; }
+    .contato-foto img { display: block; width: 100%; height: auto; filter: drop-shadow(0 14px 22px rgba(20, 23, 28, .18)); }
+
+    .contato-info { display: flex; flex-direction: column; gap: 30px; }
+    .info-tag {
+      display: inline-block;
+      font-family: var(--display); font-size: 22px; letter-spacing: .5px; text-transform: uppercase;
+      background: var(--azul); color: #fff;
+      border: 3px solid var(--tinta); border-radius: 12px 20px 12px 18px;
+      box-shadow: 4px 4px 0 var(--tinta);
+      padding: 3px 22px; transform: rotate(-1.5deg); margin-bottom: 14px;
+    }
+    .info-bloco a { display: block; color: var(--tinta); text-decoration: none; font-size: 17px; margin-bottom: 4px; transition: color .15s ease; }
+    .info-bloco a:hover { color: var(--azul); }
+
+    .contato-redes { text-align: left; margin-top: 4px; }
+    .contato-redes p { font-family: var(--display); font-size: 18px; text-transform: uppercase; letter-spacing: .5px; color: var(--tinta); margin-bottom: 12px; }
+    .redes-lista { display: flex; justify-content: flex-start; gap: 14px; }
+    .redes-lista a {
+      width: 52px; height: 52px; border-radius: 13px 18px 13px 16px;
+      background: var(--tinta); color: #fff; border: 3px solid var(--tinta);
+      box-shadow: 4px 4px 0 rgba(20, 23, 28, .22);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .15s ease, background .15s ease;
+    }
+    .redes-lista a:nth-child(odd)  { transform: rotate(-3deg); }
+    .redes-lista a:nth-child(even) { transform: rotate(3deg); }
+    .redes-lista a:hover { transform: translateY(-3px) rotate(0deg); background: var(--azul); }
+    .redes-lista svg { width: 24px; height: 24px; }
+
+    @media (max-width: 780px) {
+      .contato-cols { grid-template-columns: 1fr; gap: 20px; }
+      .contato-foto { max-width: 460px; margin: 0 auto; }
+      .info-tag { transform: rotate(-1deg); }
+      .contato-info { align-items: center; }
+      .contato-redes { text-align: center; }
+      .redes-lista { justify-content: center; }
+    }
+
+    /* ===================== GALERIA / FOTOS ===================== */
+    .galeria { position: relative; overflow: hidden; background: #0b0b0d; color: #fff; padding: 54px 24px 58px; }
+    .galeria::before {
+      content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: .12;
+    }
+    .galeria-inner { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; }
+    .galeria-head { margin-bottom: 24px; text-align: center; }
+    .galeria-kicker { font-weight: 600; font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--amarelo); }
+    .galeria-head h2 { font-family: var(--display); font-size: clamp(32px, 5vw, 58px); text-transform: uppercase; letter-spacing: 1px; line-height: 1; margin-top: 6px; }
+
+    /* faixa horizontal (cabe em ~100vh, preserva proporções) */
+    .galeria-track {
+      display: flex; gap: 16px; overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 12px 4px 14px; scrollbar-width: none;
+    }
+    .galeria-track::-webkit-scrollbar { display: none; }
+    .foto-item {
+      position: relative; flex: 0 0 auto; scroll-snap-align: start;
+      height: clamp(260px, 50vh, 430px);
+      border: 4px solid #f5f2e9;
+      border-radius: 8px 14px 8px 12px;
+      box-shadow: 0 14px 30px rgba(0, 0, 0, .55);
+      transition: transform .2s ease;
+    }
+    .foto-item:nth-child(odd)  { transform: rotate(-1.5deg); }
+    .foto-item:nth-child(even) { transform: rotate(1.5deg); }
+    .foto-item:nth-child(3n)   { transform: rotate(.7deg); }
+    .foto-item:hover { transform: rotate(0deg) scale(1.02); z-index: 2; }
+    .foto-item img { display: block; height: 100%; width: auto; }
+    .foto-item::before {   /* fita adesiva (washi) */
+      content: ""; position: absolute; top: -11px; left: 50%;
+      transform: translateX(-50%) rotate(-4deg);
+      width: 68px; height: 20px; z-index: 3;
+      background: rgba(245, 197, 24, .5);
+      border: 1px dashed rgba(0, 0, 0, .2);
+    }
+    .foto-item:nth-child(even)::before { transform: translateX(-50%) rotate(5deg); background: rgba(30, 39, 235, .35); }
+
+    .galeria-controls { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 24px; }
+
+    /* ===================== FOOTER ===================== */
+    .rodape {
+      position: relative; overflow: hidden;
+      background: var(--azul); color: #fff;
+      padding: 22px 24px;
+    }
+    .rodape::before {
+      content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: .08;
+    }
+    .rodape-inner {
+      position: relative; z-index: 1;
+      max-width: 1240px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: center; gap: 26px; flex-wrap: nowrap;
+    }
+    .rodape-copy { text-align: right; font-size: 13px; line-height: 1.45; color: rgba(255, 255, 255, .9); }
+    .rodape-copy strong { display: block; font-family: var(--display); font-weight: 700; font-size: 16px; color: #fff; letter-spacing: .3px; }
+    .rodape-divisor { width: 2px; height: 42px; background: rgba(255, 255, 255, .35); }
+    .rodape-dev { display: flex; align-items: center; gap: 12px; }
+    .rodape-logo { height: 48px; width: auto; display: block; }
+    .rodape-dev-txt { font-size: 13px; line-height: 1.45; color: rgba(255, 255, 255, .9); }
+    .rodape-dev-txt strong { display: block; font-family: var(--display); font-weight: 700; font-size: 18px; color: #fff; letter-spacing: .3px; }
+    @media (max-width: 560px) {
+      .rodape-inner { gap: 14px; }
+      .rodape-copy, .rodape-dev-txt { font-size: 11px; }
+      .rodape-copy strong, .rodape-dev-txt strong { font-size: 13px; }
+      .rodape-logo { height: 38px; }
+      .rodape-divisor { height: 34px; }
+    }
+
+    /* ===================== FEEDBACKS / RECADOS ===================== */
+    .recados { position: relative; overflow: hidden; background: #0b0b0d; color: #fff; padding: 84px 0 88px; }
+    .recados::before {
+      content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: .12;
+    }
+    .recados-head { position: relative; z-index: 1; text-align: center; max-width: 1160px; margin: 0 auto 36px; padding: 0 24px; }
+    .recados-kicker { font-weight: 600; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--amarelo); }
+    .recados-head h2 { font-family: var(--display); font-size: clamp(40px, 7vw, 80px); text-transform: uppercase; letter-spacing: 1px; line-height: 1; margin-top: 6px; }
+
+    .recados-fila {
+      position: relative; z-index: 1; overflow: hidden; padding: 14px 0;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+      mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    }
+    .recados-track { display: inline-flex; padding-left: 20px; will-change: transform; }
+    .recados-track.esq { animation: recados-scroll 44s linear infinite; }
+    .recados-track.dir { animation: recados-scroll 44s linear infinite reverse; }
+    .recados-fila:hover .recados-track { animation-play-state: paused; }
+    @keyframes recados-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    .recado {
+      flex: 0 0 clamp(224px, 26vw, 282px);
+      margin-right: 20px;
+      padding: 24px 22px 18px;
+      border: 3px solid var(--tinta);
+      border-radius: 10px 16px 10px 14px;
+      box-shadow: 5px 5px 0 rgba(0, 0, 0, .5);
+      position: relative;
+    }
+    .recado:nth-child(3n+1) { background: var(--amarelo); color: var(--tinta); transform: rotate(-1.5deg); }
+    .recado:nth-child(3n+2) { background: #ffffff;        color: var(--tinta); transform: rotate(1.2deg); }
+    .recado:nth-child(3n+3) { background: var(--azul);    color: #fff;         transform: rotate(-.7deg); }
+    .recado::before {
+      content: ""; position: absolute; top: -11px; left: 50%;
+      transform: translateX(-50%) rotate(-4deg);
+      width: 66px; height: 20px; z-index: 3;
+      background: rgba(20, 23, 28, .18); border: 1px dashed rgba(0, 0, 0, .25);
+    }
+    .recado p { font-family: var(--mao); font-size: 18px; line-height: 1.3; margin-bottom: 12px; }
+    .recado .quem { font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: .5px; opacity: .85; }
+
+    .recados-cta { position: relative; z-index: 1; text-align: center; margin-top: 44px; }
+
+    /* modal */
+    .modal { position: fixed; inset: 0; z-index: 200; display: none; align-items: center; justify-content: center; background: rgba(6, 6, 8, .72); padding: 24px; }
+    .modal.aberto { display: flex; }
+    .modal-card {
+      position: relative; width: 100%; max-width: 460px; padding: 30px 28px 26px;
+      background: #faf8f2; color: var(--tinta);
+      border: 3px solid var(--tinta); border-radius: 18px 26px 18px 24px;
+      box-shadow: 10px 10px 0 var(--tinta);
+    }
+    .modal-card h3 { font-family: var(--display); font-size: 30px; text-transform: uppercase; line-height: 1; }
+    .modal-card .sub { font-size: 13px; color: #555; margin: 6px 0 20px; }
+    .modal-card label { display: block; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
+    .modal-card input, .modal-card textarea {
+      width: 100%; background: #fff; color: var(--tinta);
+      border: 2px solid var(--tinta); border-radius: 10px; padding: 11px 13px;
+      font-family: var(--corpo); font-size: 15px; margin-bottom: 16px;
+    }
+    .modal-card textarea { min-height: 108px; resize: vertical; }
+    .modal-card .btn-vermais { width: 100%; text-align: center; transform: rotate(0); }
+    .modal-aviso { font-size: 12px; color: #666; margin-top: 12px; text-align: center; }
+    .modal-fechar {
+      position: absolute; top: 14px; right: 16px; width: 38px; height: 38px;
+      border-radius: 50%; border: 3px solid var(--tinta); background: #fff; color: var(--tinta);
+      cursor: pointer; font-size: 20px; line-height: 1;
+    }
+    .modal-fechar:hover { background: var(--vermelho); color: #fff; border-color: var(--vermelho); }
+    .modal-sucesso { display: none; text-align: center; padding: 14px 0 6px; }
+    .modal-sucesso.ativo { display: block; }
+    .modal-sucesso svg { color: var(--verde); margin-bottom: 8px; }
 
     @media (prefers-reduced-motion: reduce) {
       * { transition: none !important; scroll-behavior: auto !important; }
+      .marquee-track, .recados-track { animation: none !important; }
+      .show-card { opacity: 1 !important; animation: none !important; }
     }
   </style>
 </head>
@@ -240,14 +709,14 @@
 
       <div class="nav-links">
         <div class="nav-grupo esquerda">
-          <a href="#biografia">Biografia</a>
-          <a href="#musicas">Músicas</a>
+          <a href="biografia.html">Biografia</a>
           <a href="#agenda">Agenda</a>
+          <a href="#fotos">Fotos</a>
         </div>
         <div class="nav-grupo direita">
-          <a href="#fotos">Fotos</a>
           <a href="#contato">Contato</a>
           <a href="#feedbacks">Feedbacks</a>
+          <a href="https://www.instagram.com/grupozero14/" target="_blank" rel="noopener">Instagram</a>
         </div>
       </div>
 
@@ -263,8 +732,312 @@
   <!-- ===================== HERO ===================== -->
   <section class="hero" id="inicio" role="img" aria-label="Grupo Zero 14 - É no pagode do Zero 14"></section>
 
-  <!-- Espaço temporário (só pra testar o scroll da navbar; conteúdo real vem depois) -->
-  <div class="placeholder">Conteúdo do site virá aqui &mdash; próxima etapa</div>
+  <!-- ===================== VÍDEO / ASSISTA AGORA ===================== -->
+  <section class="video" id="assista">
+    <div class="video-marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Assista agora •</span><span>Assista agora •</span><span>Assista agora •</span>
+        <span>Assista agora •</span><span>Assista agora •</span><span>Assista agora •</span>
+        <span>Assista agora •</span><span>Assista agora •</span><span>Assista agora •</span>
+        <span>Assista agora •</span><span>Assista agora •</span><span>Assista agora •</span>
+      </div>
+    </div>
+
+    <div class="video-wrap" id="videoWrap">
+      <button class="video-facade" id="videoFacade" type="button" aria-label="Reproduzir vídeo: Grupo Zero 14 - Love Love (Clipe Oficial)">
+        <img class="video-thumb"
+             src="https://img.youtube.com/vi/7pOh3PVH8lE/maxresdefault.jpg"
+             alt="Grupo Zero 14 - Love Love (Clipe Oficial)"
+             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/7pOh3PVH8lE/hqdefault.jpg';" />
+        <span class="video-play" aria-hidden="true">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ===================== NÚMEROS ===================== -->
+  <section class="stats" id="numeros">
+    <div class="stats-inner">
+      <div class="stats-titulo">
+        <span class="stats-kicker">Puro suco do pagode</span>
+        <h2>O Zero 14 em números</h2>
+      </div>
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-icone">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div class="stat-num" data-target="120" data-suffix="+">0</div>
+          <div class="stat-label">Shows realizados</div>
+        </div>
+        <div class="stat">
+          <div class="stat-icone">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="stat-num" data-target="50000" data-suffix="+" data-format="k">0</div>
+          <div class="stat-label">Seguidores</div>
+        </div>
+        <div class="stat">
+          <div class="stat-icone">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </div>
+          <div class="stat-num" data-target="340" data-suffix="+">0</div>
+          <div class="stat-label">Recados de fãs</div>
+        </div>
+        <div class="stat">
+          <div class="stat-icone">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="stat-num" data-target="45" data-suffix="+">0</div>
+          <div class="stat-label">Cidades pelo Brasil</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== AGENDA ===================== -->
+  <section class="agenda" id="agenda">
+    <div class="agenda-inner">
+      <div class="agenda-head">
+        <span class="agenda-kicker">É no pagode do Zero 14</span>
+        <h2>Agenda</h2>
+        <svg class="squiggle" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M3 9 C 45 2, 78 12, 118 7 S 196 2, 234 8 S 286 5, 297 7" fill="none" stroke="#E12E27" stroke-width="4.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="agenda-track" id="agendaTrack">
+        <a href="#" class="show-card" aria-label="Pagode do Zero 14, 21 de agosto, São Paulo/SP">
+          <div class="show-mes">Agosto</div>
+          <div class="show-evento">Pagode do Zero 14</div>
+          <div class="show-dia">21</div>
+          <div class="show-local">
+            <div class="show-uf">SP</div>
+            <div class="show-cidade"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg> São Paulo</div>
+          </div>
+        </a>
+
+        <a href="#" class="show-card" aria-label="Churrasquinho da Galera, 29 de agosto, Campinas/SP">
+          <div class="show-mes">Agosto</div>
+          <div class="show-evento">Churrasquinho da Galera</div>
+          <div class="show-dia">29</div>
+          <div class="show-local">
+            <div class="show-uf">SP</div>
+            <div class="show-cidade"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg> Campinas</div>
+          </div>
+        </a>
+
+        <a href="#" class="show-card" aria-label="Zero 14 ao Vivo, 12 de setembro, Rio de Janeiro/RJ">
+          <div class="show-mes">Setembro</div>
+          <div class="show-evento">Zero 14 ao Vivo</div>
+          <div class="show-dia">12</div>
+          <div class="show-local">
+            <div class="show-uf">RJ</div>
+            <div class="show-cidade"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg> Rio de Janeiro</div>
+          </div>
+        </a>
+
+        <a href="#" class="show-card" aria-label="Samba de Raiz, 20 de setembro, Belo Horizonte/MG">
+          <div class="show-mes">Setembro</div>
+          <div class="show-evento">Samba de Raiz</div>
+          <div class="show-dia">20</div>
+          <div class="show-local">
+            <div class="show-uf">MG</div>
+            <div class="show-cidade"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg> Belo Horizonte</div>
+          </div>
+        </a>
+
+        <a href="#" class="show-card" aria-label="Pagode em Cartaz, 04 de outubro, Criciúma/SC">
+          <div class="show-mes">Outubro</div>
+          <div class="show-evento">Pagode em Cartaz</div>
+          <div class="show-dia">04</div>
+          <div class="show-local">
+            <div class="show-uf">SC</div>
+            <div class="show-cidade"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg> Criciúma</div>
+          </div>
+        </a>
+
+        <a href="#" class="show-card" aria-label="Zero 14 Convida, 18 de outubro, Porto Alegre/RS">
+          <div class="show-mes">Outubro</div>
+          <div class="show-evento">Zero 14 Convida</div>
+          <div class="show-dia">18</div>
+          <div class="show-local">
+            <div class="show-uf">RS</div>
+            <div class="show-cidade"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg> Porto Alegre</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="agenda-controls">
+        <button class="agenda-seta" id="agendaPrev" type="button" aria-label="Shows anteriores">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <a href="#" class="btn-vermais">Ver mais</a>
+        <button class="agenda-seta" id="agendaNext" type="button" aria-label="Próximos shows">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== GALERIA / FOTOS ===================== -->
+  <section class="galeria" id="fotos">
+    <div class="galeria-inner">
+      <div class="galeria-head">
+        <span class="galeria-kicker">Momentos do grupo</span>
+        <h2>Fotos</h2>
+      </div>
+      <div class="galeria-track" id="galeriaTrack">
+        <figure class="foto-item"><img src="assets/galeria/web/g1.jpg" width="795" height="1200" alt="Grupo Zero 14 ao vivo" loading="lazy" /></figure>
+        <figure class="foto-item"><img src="assets/galeria/web/g2.jpg" width="795" height="1200" alt="Grupo Zero 14 ao vivo" loading="lazy" /></figure>
+        <figure class="foto-item"><img src="assets/galeria/web/g3.jpg" width="1200" height="795" alt="Grupo Zero 14 com o público" loading="lazy" /></figure>
+        <figure class="foto-item"><img src="assets/galeria/web/g4.jpg" width="795" height="1200" alt="Grupo Zero 14 ao vivo" loading="lazy" /></figure>
+        <figure class="foto-item"><img src="assets/galeria/web/g5.jpg" width="795" height="1200" alt="Grupo Zero 14 ao vivo" loading="lazy" /></figure>
+        <figure class="foto-item"><img src="assets/galeria/web/g6.jpg" width="795" height="1200" alt="Grupo Zero 14 ao vivo" loading="lazy" /></figure>
+      </div>
+      <div class="galeria-controls">
+        <button class="agenda-seta" id="galeriaPrev" type="button" aria-label="Fotos anteriores">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <a href="galeria.html" class="btn-vermais">Ver galeria</a>
+        <button class="agenda-seta" id="galeriaNext" type="button" aria-label="Próximas fotos">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTATO ===================== -->
+  <section class="contato" id="contato">
+    <div class="contato-inner">
+      <div class="contato-head">
+        <h2>Contato</h2>
+        <svg class="squiggle" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M3 9 C 45 2, 78 12, 118 7 S 196 2, 234 8 S 286 5, 297 7" fill="none" stroke="#E12E27" stroke-width="4.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+
+      <div class="contato-cols">
+        <div class="contato-foto">
+          <picture>
+            <source srcset="assets/grupo-web.webp" type="image/webp" />
+            <img src="assets/grupo-web.png" width="1000" height="893" alt="Integrantes do Grupo Zero 14" loading="lazy" />
+          </picture>
+        </div>
+        <div class="contato-info">
+          <div class="info-bloco">
+            <span class="info-tag">Shows</span>
+            <a href="tel:+5511912345678">(11) 91234-5678</a>
+            <a href="mailto:shows@grupozero14.com.br">shows@grupozero14.com.br</a>
+          </div>
+          <div class="info-bloco">
+            <span class="info-tag">Parcerias</span>
+            <a href="mailto:parcerias@grupozero14.com.br">parcerias@grupozero14.com.br</a>
+          </div>
+
+          <div class="contato-redes">
+        <p>Nos siga nas redes</p>
+        <div class="redes-lista">
+          <a href="https://www.instagram.com/grupozero14/" aria-label="Instagram" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 1.8.25 2.2.42.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.17.4.36 1 .42 2.2.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 1.8-.42 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.17-1 .36-2.2.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-1.8-.25-2.2-.42a3.9 3.9 0 0 1-1.4-.9 3.9 3.9 0 0 1-.9-1.4c-.17-.4-.36-1-.42-2.2-.06-1.3-.07-1.7-.07-4.9s0-3.6.07-4.9c.06-1.2.25-1.8.42-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.17 1-.36 2.2-.42C8.4 2.2 8.8 2.2 12 2.2Zm0 1.8c-3.1 0-3.5 0-4.7.07-.9.04-1.4.2-1.7.32-.43.17-.74.37-1.06.7-.32.31-.52.62-.7 1.05-.12.3-.28.8-.32 1.7C4 8.5 4 8.9 4 12s0 3.5.07 4.7c.04.9.2 1.4.32 1.7.17.43.37.74.7 1.06.31.32.62.52 1.05.7.3.12.8.28 1.7.32 1.2.06 1.6.07 4.7.07s3.5 0 4.7-.07c.9-.04 1.4-.2 1.7-.32.43-.17.74-.37 1.06-.7.32-.31.52-.62.7-1.05.12-.3.28-.8.32-1.7.06-1.2.07-1.6.07-4.7s0-3.5-.07-4.7c-.04-.9-.2-1.4-.32-1.7a2.8 2.8 0 0 0-.7-1.06 2.8 2.8 0 0 0-1.05-.7c-.3-.12-.8-.28-1.7-.32C15.5 4 15.1 4 12 4Zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8Zm0 1.8a3.1 3.1 0 1 0 0 6.2 3.1 3.1 0 0 0 0-6.2Zm5.1-.9a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0Z"/></svg>
+          </a>
+          <a href="#" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.3 2.1 1.5 3.4 3.5 3.6v2.4c-1.2.1-2.3-.3-3.5-1v6.1c0 3.6-2.6 5.9-5.7 5.9A5.7 5.7 0 0 1 5 14.4c0-3.4 2.9-5.7 6.2-5.3v2.6c-.4-.1-.9-.2-1.3-.2-1.5 0-2.6 1.1-2.6 2.7 0 1.6 1.1 2.7 2.6 2.7 1.6 0 2.7-1.2 2.7-2.9V3h1.9Z"/></svg>
+          </a>
+          <a href="#" aria-label="YouTube">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.7-1.7C19.3 5.2 12 5.2 12 5.2s-7.3 0-8.9.4a2.5 2.5 0 0 0-1.7 1.7C1 8.8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.7 1.7c1.6.4 8.9.4 8.9.4s7.3 0 8.9-.4a2.5 2.5 0 0 0 1.7-1.7c.4-1.5.4-4.7.4-4.7ZM9.8 15.1V8.9l5.4 3.1-5.4 3.1Z"/></svg>
+          </a>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FEEDBACKS / RECADOS ===================== -->
+  <section class="recados" id="feedbacks">
+    <div class="recados-head">
+      <span class="recados-kicker">Fala, torcida!</span>
+      <h2>Recados</h2>
+    </div>
+
+    <div class="recados-fila">
+      <div class="recados-track esq">
+        <div class="recado"><p>"Show sensacional em São Paulo! Já quero o próximo."</p><span class="quem">João P.</span></div>
+        <div class="recado"><p>"Melhor pagode que já vi ao vivo!"</p><span class="quem">Mariana S.</span></div>
+        <div class="recado"><p>"Quando vocês vêm pra Minas?? Tô esperando!"</p><span class="quem">Carlos E.</span></div>
+        <div class="recado"><p>"Energia contagiante do começo ao fim."</p><span class="quem">Bea R.</span></div>
+        <div class="recado"><p>"Zero 14 é raiz! Sucesso sempre."</p><span class="quem">Rafa L.</span></div>
+        <div class="recado" aria-hidden="true"><p>"Show sensacional em São Paulo! Já quero o próximo."</p><span class="quem">João P.</span></div>
+        <div class="recado" aria-hidden="true"><p>"Melhor pagode que já vi ao vivo!"</p><span class="quem">Mariana S.</span></div>
+        <div class="recado" aria-hidden="true"><p>"Quando vocês vêm pra Minas?? Tô esperando!"</p><span class="quem">Carlos E.</span></div>
+        <div class="recado" aria-hidden="true"><p>"Energia contagiante do começo ao fim."</p><span class="quem">Bea R.</span></div>
+        <div class="recado" aria-hidden="true"><p>"Zero 14 é raiz! Sucesso sempre."</p><span class="quem">Rafa L.</span></div>
+      </div>
+    </div>
+
+    <div class="recados-fila">
+      <div class="recados-track dir">
+        <div class="recado"><p>"Cantei todas as músicas, foi surreal!"</p><span class="quem">Nay</span></div>
+        <div class="recado"><p>"Fui no churrasquinho e não paro de ouvir."</p><span class="quem">Diego M.</span></div>
+        <div class="recado"><p>"Playlist no repeat direto."</p><span class="quem">Lu</span></div>
+        <div class="recado"><p>"Melhor grupo revelação, disparado!"</p><span class="quem">Thiago</span></div>
+        <div class="recado"><p>"Vocês fazem a festa acontecer!"</p><span class="quem">Amanda</span></div>
+        <div class="recado" aria-hidden="true"><p>"Cantei todas as músicas, foi surreal!"</p><span class="quem">Nay</span></div>
+        <div class="recado" aria-hidden="true"><p>"Fui no churrasquinho e não paro de ouvir."</p><span class="quem">Diego M.</span></div>
+        <div class="recado" aria-hidden="true"><p>"Playlist no repeat direto."</p><span class="quem">Lu</span></div>
+        <div class="recado" aria-hidden="true"><p>"Melhor grupo revelação, disparado!"</p><span class="quem">Thiago</span></div>
+        <div class="recado" aria-hidden="true"><p>"Vocês fazem a festa acontecer!"</p><span class="quem">Amanda</span></div>
+      </div>
+    </div>
+
+    <div class="recados-cta">
+      <button class="btn-vermais" id="abrirRecado" type="button">Deixar recado</button>
+    </div>
+
+    <!-- modal deixar recado -->
+    <div class="modal" id="modalRecado" role="dialog" aria-modal="true" aria-label="Deixar recado" aria-hidden="true">
+      <div class="modal-card">
+        <button class="modal-fechar" id="fecharRecado" type="button" aria-label="Fechar">&times;</button>
+        <div class="modal-form" id="recadoForm">
+          <h3>Deixe seu recado</h3>
+          <p class="sub">Manda um salve pro Zero 14!</p>
+          <form id="formRecado">
+            <label for="rec-nome">Seu nome</label>
+            <input type="text" id="rec-nome" name="nome" placeholder="Como você quer aparecer" required />
+            <label for="rec-msg">Mensagem</label>
+            <textarea id="rec-msg" name="mensagem" placeholder="Escreve seu recado pro grupo..." required></textarea>
+            <button class="btn-vermais" type="submit">Enviar recado</button>
+            <p class="modal-aviso">Seu recado passa por aprovação antes de aparecer no mural.</p>
+          </form>
+        </div>
+        <div class="modal-sucesso" id="recadoSucesso">
+          <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <h3>Recado enviado!</h3>
+          <p class="sub" style="margin-top:8px">Valeu! Assim que for aprovado, ele aparece no mural.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="rodape">
+    <div class="rodape-inner">
+      <div class="rodape-copy">
+        <strong>© 2026 Grupo Zero 14</strong>
+        Todos os direitos reservados
+      </div>
+      <div class="rodape-divisor" aria-hidden="true"></div>
+      <div class="rodape-dev">
+        <img class="rodape-logo" src="assets/nebula-web.png" alt="Nebula" />
+        <div class="rodape-dev-txt">
+          Desenvolvido por
+          <strong>Nebula</strong>
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <script>
     // Menu mobile
@@ -293,6 +1066,126 @@
     window.addEventListener('resize', atualizarNavbar);
     window.addEventListener('load', atualizarNavbar);
     atualizarNavbar();
+
+    // Vídeo: carrega o player do YouTube só ao clicar na capa
+    const videoFacade = document.getElementById('videoFacade');
+    if (videoFacade) {
+      videoFacade.addEventListener('click', () => {
+        const wrap = document.getElementById('videoWrap');
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube.com/embed/7pOh3PVH8lE?autoplay=1&rel=0';
+        iframe.title = 'Grupo Zero 14 - Love Love (Clipe Oficial)';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+        wrap.innerHTML = '';
+        wrap.appendChild(iframe);
+      });
+    }
+
+    // Números: contagem animada ao entrar na tela
+    const nums = document.querySelectorAll('.stat-num');
+    const semAnimacao = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const formatar = (val, fmt) =>
+      fmt === 'k' ? Math.round(val / 1000) + 'K' : Math.round(val).toLocaleString('pt-BR');
+    function animarContador(el) {
+      const alvo = +el.dataset.target;
+      const suf = el.dataset.suffix || '';
+      const fmt = el.dataset.format;
+      if (semAnimacao) { el.textContent = formatar(alvo, fmt) + suf; return; }
+      const dur = 1600, t0 = performance.now();
+      (function passo(now) {
+        const p = Math.min((now - t0) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = formatar(alvo * eased, fmt) + suf;
+        if (p < 1) requestAnimationFrame(passo);
+        else el.textContent = formatar(alvo, fmt) + suf;
+      })(t0);
+    }
+    if (nums.length) {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { animarContador(e.target); obs.unobserve(e.target); }
+        });
+      }, { threshold: 0.4 });
+      nums.forEach(n => obs.observe(n));
+    }
+
+    // Agenda: setas do carrossel + entrada dos cards
+    const agTrack = document.getElementById('agendaTrack');
+    if (agTrack) {
+      const agPrev = document.getElementById('agendaPrev');
+      const agNext = document.getElementById('agendaNext');
+      const passo = () => {
+        const card = agTrack.querySelector('.show-card');
+        return (card ? card.offsetWidth : 244) + 20;
+      };
+      agPrev.addEventListener('click', () => agTrack.scrollBy({ left: -passo() * 1.5, behavior: 'smooth' }));
+      agNext.addEventListener('click', () => agTrack.scrollBy({ left:  passo() * 1.5, behavior: 'smooth' }));
+      const atualizarSetas = () => {
+        agPrev.disabled = agTrack.scrollLeft <= 4;
+        agNext.disabled = agTrack.scrollLeft + agTrack.clientWidth >= agTrack.scrollWidth - 4;
+      };
+      agTrack.addEventListener('scroll', atualizarSetas, { passive: true });
+      window.addEventListener('resize', atualizarSetas);
+      atualizarSetas();
+
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((ents) => {
+          ents.forEach(e => { if (e.isIntersecting) { agTrack.classList.add('visivel'); io.disconnect(); } });
+        }, { threshold: 0.15 });
+        io.observe(agTrack);
+      } else {
+        agTrack.classList.add('visivel');
+      }
+    }
+
+    // Galeria: setas do carrossel
+    const glTrack = document.getElementById('galeriaTrack');
+    if (glTrack) {
+      const glPrev = document.getElementById('galeriaPrev');
+      const glNext = document.getElementById('galeriaNext');
+      const passoGl = () => Math.max(glTrack.clientWidth * 0.7, 260);
+      glPrev.addEventListener('click', () => glTrack.scrollBy({ left: -passoGl(), behavior: 'smooth' }));
+      glNext.addEventListener('click', () => glTrack.scrollBy({ left: passoGl(), behavior: 'smooth' }));
+      const setasGl = () => {
+        glPrev.disabled = glTrack.scrollLeft <= 4;
+        glNext.disabled = glTrack.scrollLeft + glTrack.clientWidth >= glTrack.scrollWidth - 4;
+      };
+      glTrack.addEventListener('scroll', setasGl, { passive: true });
+      window.addEventListener('resize', setasGl);
+      setasGl();
+    }
+
+    // Recados: modal deixar recado
+    const modalRec = document.getElementById('modalRecado');
+    if (modalRec) {
+      const abrir = document.getElementById('abrirRecado');
+      const fechar = document.getElementById('fecharRecado');
+      const form = document.getElementById('formRecado');
+      const blocoForm = document.getElementById('recadoForm');
+      const sucesso = document.getElementById('recadoSucesso');
+      const abrirModal = () => {
+        modalRec.classList.add('aberto'); modalRec.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        blocoForm.style.display = ''; sucesso.classList.remove('ativo');
+        setTimeout(() => document.getElementById('rec-nome').focus(), 50);
+      };
+      const fecharModal = () => {
+        modalRec.classList.remove('aberto'); modalRec.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      };
+      abrir.addEventListener('click', abrirModal);
+      fechar.addEventListener('click', fecharModal);
+      modalRec.addEventListener('click', e => { if (e.target === modalRec) fecharModal(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && modalRec.classList.contains('aberto')) fecharModal(); });
+      form.addEventListener('submit', e => {
+        e.preventDefault();
+        blocoForm.style.display = 'none';
+        sucesso.classList.add('ativo');
+        form.reset();
+        setTimeout(fecharModal, 2600);
+      });
+    }
   </script>
 
 </body>
