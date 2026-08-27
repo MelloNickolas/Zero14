@@ -1,0 +1,25 @@
+# ===== .NET / Backend =====
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+.vs/
+appsettings.*.local.json
+
+# ===== Node / Frontend =====
+node_modules/
+dist/
+.vite/
+*.local
+
+# ===== Segredos / variáveis de ambiente =====
+.env
+.env.*
+!.env-model    # o modelo (sem segredos) fica versionado
+
+# ===== Editores / OS =====
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db

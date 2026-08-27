@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Músicas — Grupo Zero 14</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Patrick+Hand&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --azul:     #1E27EB;
+      --amarelo:  #F5C518;
+      --vermelho: #E12E27;
+      --verde:    #22C55E;
+      --branco:   #ffffff;
+      --texto:    #14171c;
+
+      --display: 'Kalam', 'Comic Sans MS', cursive;
+      --corpo:   'Poppins', -apple-system, Segoe UI, Roboto, sans-serif;
+      --mao:     'Patrick Hand', 'Comic Sans MS', cursive;
+      --tinta:   #14171c;
+
+      --nav-altura: 92px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--corpo); background: #faf8f2; color: var(--texto); }
+    .container { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 28px; }
+
+    /* ===================== NAVBAR ===================== */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: transparent; border-bottom: 1px solid transparent;
+      transition: background .3s ease, box-shadow .3s ease, border-color .3s ease;
+    }
+    .navbar.solido { background: var(--branco); border-bottom-color: #ececf0; box-shadow: 0 1px 10px rgba(0,0,0,.06); }
+    .nav { display: flex; align-items: center; height: var(--nav-altura); gap: 20px; }
+    .nav-grupo { display: flex; align-items: center; gap: 30px; flex: 1; }
+    .nav-grupo.esquerda { justify-content: flex-end; order: 1; }
+    .nav-grupo.direita  { justify-content: flex-start; order: 3; }
+    .nav-links { display: contents; }
+    .nav-grupo a {
+      position: relative; color: var(--branco); text-decoration: none;
+      font-weight: 500; font-size: 15px; letter-spacing: .2px; padding: 6px 0;
+      white-space: nowrap; text-shadow: 0 1px 6px rgba(0,0,0,.35); transition: color .2s ease;
+    }
+    .nav-grupo a::after {
+      content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 2px;
+      background: var(--vermelho); transition: width .2s ease;
+    }
+    .nav-grupo a:hover { color: var(--vermelho); }
+    .nav-grupo a:hover::after { width: 100%; }
+    .nav-grupo a.ativo::after { width: 100%; }
+    .nav-grupo a:focus-visible { outline: 2px solid var(--vermelho); outline-offset: 4px; border-radius: 2px; }
+    .navbar.solido .nav-grupo a { color: var(--texto); text-shadow: none; }
+    .navbar.solido .nav-grupo a::after { background: var(--azul); }
+    .navbar.solido .nav-grupo a:hover { color: var(--azul); }
+    .navbar.solido .nav-grupo a:focus-visible { outline-color: var(--azul); }
+
+    .logo { flex: 0 0 auto; order: 2; display: inline-flex; align-items: center; }
+    .logo img { height: 56px; width: auto; display: block; }
+    .logo .logo-preta { display: none; }
+    .logo .logo-branca { display: block; }
+    .navbar.solido .logo .logo-branca { display: none; }
+    .navbar.solido .logo .logo-preta { display: block; }
+
+    .menu-toggle {
+      display: none; background: transparent; border: none; color: var(--branco);
+      cursor: pointer; width: 44px; height: 44px; align-items: center; justify-content: center;
+      filter: drop-shadow(0 1px 4px rgba(0,0,0,.4));
+    }
+    .navbar.solido .menu-toggle { color: var(--texto); filter: none; }
+    .menu-toggle svg { display: block; }
+
+    @media (max-width: 900px) {
+      .nav { justify-content: space-between; }
+      .menu-toggle { display: inline-flex; order: 1; }
+      .logo { order: 2; margin: 0 auto; }
+      .logo-spacer { order: 3; width: 44px; }
+      .nav-links {
+        display: flex; order: 4; flex-direction: column;
+        position: absolute; top: var(--nav-altura); left: 0; right: 0;
+        background: var(--branco); padding: 0 28px; max-height: 0; overflow: hidden;
+        transition: max-height .28s ease, padding .28s ease;
+      }
+      .nav-menu.aberto .nav-links {
+        max-height: 480px; padding: 6px 28px 12px;
+        border-bottom: 1px solid #ececf0; box-shadow: 0 12px 20px rgba(0,0,0,.10);
+      }
+      .nav-grupo { position: static; flex-direction: column; align-items: stretch; gap: 0; flex: none; width: 100%; }
+      .nav-grupo a {
+        display: block; width: 100%; padding: 14px 0; border-bottom: 1px solid #f0f0f3;
+        font-size: 16px; color: var(--texto); text-shadow: none;
+      }
+      .nav-grupo a::after { display: none; }
+      .nav-grupo a:hover, .nav-grupo a.ativo { color: var(--azul); }
+      .nav-grupo.direita a:last-child { border-bottom: 0; }
+    }
+    @media (min-width: 901px) { .logo-spacer { display: none; } }
+
+    /* ===================== CABEÇALHO ===================== */
+    .cabecalho {
+      position: relative; overflow: hidden;
+      min-height: 52vh; min-height: 52dvh;
+      background: var(--azul); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      padding: calc(var(--nav-altura) + 40px) 24px 56px;
+      text-align: center;
+    }
+    .cabecalho::before {
+      content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: .12;
+    }
+    .cab-conteudo { position: relative; z-index: 1; }
+    .cab-kicker { font-weight: 600; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--amarelo); }
+    .cab-conteudo h1 {
+      font-family: var(--display); font-size: clamp(54px, 11vw, 120px);
+      text-transform: uppercase; line-height: .95; margin-top: 6px;
+      text-shadow: 5px 5px 0 rgba(0,0,0,.22);
+    }
+    .cab-conteudo p { margin-top: 12px; color: rgba(255,255,255,.85); font-size: 16px; max-width: 540px; margin-left: auto; margin-right: auto; }
+    .squiggle { display: block; width: min(280px, 60%); height: 14px; margin: 10px auto 0; }
+
+    /* ===================== CLIPES ===================== */
+    .clipes { padding: 64px 24px 80px; }
+    .clipes-inner { max-width: 1160px; margin: 0 auto; }
+    .sec-head { text-align: center; margin-bottom: 44px; }
+    .sec-kicker { font-weight: 600; font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--vermelho); }
+    .sec-head h2 { font-family: var(--display); font-size: clamp(38px, 6vw, 64px); color: var(--azul); text-transform: uppercase; line-height: 1; margin-top: 6px; }
+
+    .clipes-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 34px 26px;
+    }
+    .clipe { opacity: 0; transform: translateY(16px); }
+    .clipes-grid.visivel .clipe { animation: clipeIn .5s ease forwards; }
+    .clipes-grid.visivel .clipe:nth-child(1) { animation-delay: .04s; }
+    .clipes-grid.visivel .clipe:nth-child(2) { animation-delay: .10s; }
+    .clipes-grid.visivel .clipe:nth-child(3) { animation-delay: .16s; }
+    .clipes-grid.visivel .clipe:nth-child(4) { animation-delay: .22s; }
+    .clipes-grid.visivel .clipe:nth-child(5) { animation-delay: .28s; }
+    .clipes-grid.visivel .clipe:nth-child(6) { animation-delay: .34s; }
+    @keyframes clipeIn { to { opacity: 1; transform: translateY(0); } }
+
+    .clipe-media {
+      position: relative; aspect-ratio: 16 / 9; overflow: hidden;
+      border: 3px solid var(--tinta); border-radius: 16px 26px 16px 24px;
+      box-shadow: 6px 6px 0 var(--tinta); background: #000;
+      transform: rotate(-1.2deg); transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .clipe:nth-child(even) .clipe-media { transform: rotate(1.2deg); border-radius: 26px 16px 24px 16px; }
+    .clipe:hover .clipe-media { transform: rotate(0deg) translateY(-4px); box-shadow: 9px 9px 0 var(--tinta); }
+    .clipe-media iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+    .clipe-facade { position: relative; width: 100%; height: 100%; padding: 0; border: 0; cursor: pointer; background: #000; display: block; }
+    .clipe-thumb { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .clipe-play {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 66px; height: 66px; border-radius: 50%; background: var(--vermelho);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 18px rgba(0,0,0,.45); transition: transform .2s ease;
+    }
+    .clipe-facade:hover .clipe-play, .clipe-facade:focus-visible .clipe-play { transform: translate(-50%, -50%) scale(1.1); }
+    .clipe-facade:focus-visible { outline: 3px solid var(--amarelo); outline-offset: 3px; }
+    .clipe-play svg { margin-left: 4px; }
+    .clipe-tag {
+      position: absolute; top: 12px; left: 12px;
+      font-family: var(--display); font-size: 14px; text-transform: uppercase; letter-spacing: .5px;
+      background: var(--amarelo); color: var(--tinta);
+      border: 2px solid var(--tinta); border-radius: 8px 12px 8px 10px;
+      padding: 2px 12px; transform: rotate(-3deg);
+    }
+    .clipe:nth-child(3n+2) .clipe-tag { background: var(--verde); color: #fff; }
+    .clipe:nth-child(3n+3) .clipe-tag { background: var(--vermelho); color: #fff; }
+
+    .clipe-info { margin-top: 14px; padding: 0 6px; }
+    .clipe-titulo { font-family: var(--mao); font-size: 26px; line-height: 1; color: var(--tinta); }
+    .clipe-sub { display: block; margin-top: 4px; font-size: 12.5px; text-transform: uppercase; letter-spacing: .5px; color: #6a6a76; }
+
+    /* ===================== PLATAFORMAS ===================== */
+    .plataformas { position: relative; overflow: hidden; background: #0b0b0d; color: #fff; padding: 76px 24px 84px; }
+    .plataformas::before {
+      content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: .14;
+    }
+    .plat-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; text-align: center; }
+    .plat-inner .sec-kicker { color: var(--amarelo); }
+    .plat-inner h2 { font-family: var(--display); font-size: clamp(34px, 5.5vw, 58px); text-transform: uppercase; line-height: 1; margin-top: 6px; }
+    .plat-lista { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; margin-top: 40px; }
+    .plat {
+      display: inline-flex; align-items: center; gap: 12px;
+      font-family: var(--display); font-size: 20px; letter-spacing: .5px; text-transform: uppercase;
+      text-decoration: none; color: var(--tinta);
+      background: #fff; border: 3px solid var(--tinta); border-radius: 14px 20px 14px 18px;
+      box-shadow: 5px 5px 0 rgba(0,0,0,.5);
+      padding: 14px 26px; transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+    }
+    .plat:nth-child(odd)  { transform: rotate(-1.5deg); }
+    .plat:nth-child(even) { transform: rotate(1.5deg); }
+    .plat svg { width: 26px; height: 26px; flex: 0 0 auto; }
+    .plat:hover { transform: rotate(0deg) translateY(-3px); box-shadow: 8px 8px 0 rgba(0,0,0,.5); }
+    .plat.spotify:hover { background: #1DB954; color: #fff; border-color: #14171c; }
+    .plat.youtube:hover { background: var(--vermelho); color: #fff; }
+    .plat:focus-visible { outline: 3px solid var(--amarelo); outline-offset: 3px; }
+
+    /* ===================== FOOTER ===================== */
+    .rodape { position: relative; overflow: hidden; background: var(--azul); color: #fff; padding: 22px 24px; }
+    .rodape::before {
+      content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: .08;
+    }
+    .rodape-inner { position: relative; z-index: 1; max-width: 1240px; margin: 0 auto; display: flex; align-items: center; justify-content: center; gap: 26px; flex-wrap: nowrap; }
+    .rodape-copy { text-align: right; font-size: 13px; line-height: 1.45; color: rgba(255,255,255,.9); }
+    .rodape-copy strong { display: block; font-family: var(--display); font-weight: 700; font-size: 16px; color: #fff; letter-spacing: .3px; }
+    .rodape-divisor { width: 2px; height: 42px; background: rgba(255,255,255,.35); }
+    .rodape-dev { display: flex; align-items: center; gap: 12px; }
+    .rodape-logo { height: 48px; width: auto; display: block; }
+    .rodape-dev-txt { font-size: 13px; line-height: 1.45; color: rgba(255,255,255,.9); }
+    .rodape-dev-txt strong { display: block; font-family: var(--display); font-weight: 700; font-size: 18px; color: #fff; letter-spacing: .3px; }
+    @media (max-width: 560px) {
+      .rodape-inner { gap: 14px; }
+      .rodape-copy, .rodape-dev-txt { font-size: 11px; }
+      .rodape-copy strong, .rodape-dev-txt strong { font-size: 13px; }
+      .rodape-logo { height: 38px; }
+      .rodape-divisor { height: 34px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; scroll-behavior: auto !important; }
+      .clipe { opacity: 1 !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="navbar" id="navbar" aria-label="Navegação principal">
+    <div class="container nav nav-menu" id="navMenu">
+      <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navMenu">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+
+      <div class="nav-links">
+        <div class="nav-grupo esquerda">
+          <a href="biografia.html">Biografia</a>
+          <a href="shows.html">Shows</a>
+          <a href="musicas.html" class="ativo">Músicas</a>
+        </div>
+        <div class="nav-grupo direita">
+          <a href="galeria.html">Fotos</a>
+          <a href="index.html#contato">Contato</a>
+          <a href="https://www.instagram.com/grupozero14/" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+
+      <a href="index.html" class="logo" aria-label="Grupo Zero 14 - início">
+        <img class="logo-branca" src="assets/logo-branca-nav.png" alt="Grupo Zero 14" />
+        <img class="logo-preta"  src="assets/logo-preta-nav.png"  alt="Grupo Zero 14" />
+      </a>
+
+      <span class="logo-spacer" aria-hidden="true"></span>
+    </div>
+  </nav>
+
+  <!-- ===================== CABEÇALHO ===================== -->
+  <header class="cabecalho" id="topo">
+    <div class="cab-conteudo">
+      <h1>Músicas</h1>
+      <p>Os clipes oficiais e onde ouvir o pagode do Zero 14 no repeat.</p>
+      <svg class="squiggle" viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M3 9 C 45 2, 78 12, 118 7 S 196 2, 234 8 S 286 5, 297 7" fill="none" stroke="#F5C518" stroke-width="4.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </header>
+
+  <!-- ===================== CLIPES ===================== -->
+  <main class="clipes">
+    <div class="clipes-inner">
+      <div class="sec-head">
+        <span class="sec-kicker">No repeat</span>
+        <h2>Clipes &amp; Vídeos</h2>
+      </div>
+
+      <div class="clipes-grid" id="clipesGrid">
+        <article class="clipe">
+          <div class="clipe-media" data-video="7pOh3PVH8lE">
+            <button class="clipe-facade" type="button" aria-label="Reproduzir: Love Love (Clipe Oficial)">
+              <img class="clipe-thumb" src="https://img.youtube.com/vi/7pOh3PVH8lE/hqdefault.jpg" alt="Love Love (Clipe Oficial)" width="480" height="360" loading="lazy" />
+              <span class="clipe-play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="clipe-tag">Clipe</span>
+            </button>
+          </div>
+          <div class="clipe-info">
+            <h3 class="clipe-titulo">Love Love</h3>
+            <span class="clipe-sub">Clipe Oficial</span>
+          </div>
+        </article>
+
+        <article class="clipe">
+          <div class="clipe-media" data-video="7pOh3PVH8lE">
+            <button class="clipe-facade" type="button" aria-label="Reproduzir: Piseiro do Amor (Ao Vivo)">
+              <img class="clipe-thumb" src="https://img.youtube.com/vi/7pOh3PVH8lE/hqdefault.jpg" alt="Piseiro do Amor (Ao Vivo)" width="480" height="360" loading="lazy" />
+              <span class="clipe-play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="clipe-tag">Ao vivo</span>
+            </button>
+          </div>
+          <div class="clipe-info">
+            <h3 class="clipe-titulo">Piseiro do Amor</h3>
+            <span class="clipe-sub">Ao Vivo</span>
+          </div>
+        </article>
+
+        <article class="clipe">
+          <div class="clipe-media" data-video="7pOh3PVH8lE">
+            <button class="clipe-facade" type="button" aria-label="Reproduzir: Resenha Boa (Clipe)">
+              <img class="clipe-thumb" src="https://img.youtube.com/vi/7pOh3PVH8lE/hqdefault.jpg" alt="Resenha Boa (Clipe)" width="480" height="360" loading="lazy" />
+              <span class="clipe-play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="clipe-tag">Clipe</span>
+            </button>
+          </div>
+          <div class="clipe-info">
+            <h3 class="clipe-titulo">Resenha Boa</h3>
+            <span class="clipe-sub">Clipe Oficial</span>
+          </div>
+        </article>
+
+        <article class="clipe">
+          <div class="clipe-media" data-video="7pOh3PVH8lE">
+            <button class="clipe-facade" type="button" aria-label="Reproduzir: Coração na Mão (Pagode)">
+              <img class="clipe-thumb" src="https://img.youtube.com/vi/7pOh3PVH8lE/hqdefault.jpg" alt="Coração na Mão (Pagode)" width="480" height="360" loading="lazy" />
+              <span class="clipe-play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="clipe-tag">Pagode</span>
+            </button>
+          </div>
+          <div class="clipe-info">
+            <h3 class="clipe-titulo">Coração na Mão</h3>
+            <span class="clipe-sub">Áudio Oficial</span>
+          </div>
+        </article>
+
+        <article class="clipe">
+          <div class="clipe-media" data-video="7pOh3PVH8lE">
+            <button class="clipe-facade" type="button" aria-label="Reproduzir: Volta, Amor (Clipe)">
+              <img class="clipe-thumb" src="https://img.youtube.com/vi/7pOh3PVH8lE/hqdefault.jpg" alt="Volta, Amor (Clipe)" width="480" height="360" loading="lazy" />
+              <span class="clipe-play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="clipe-tag">Clipe</span>
+            </button>
+          </div>
+          <div class="clipe-info">
+            <h3 class="clipe-titulo">Volta, Amor</h3>
+            <span class="clipe-sub">Clipe Oficial</span>
+          </div>
+        </article>
+
+        <article class="clipe">
+          <div class="clipe-media" data-video="7pOh3PVH8lE">
+            <button class="clipe-facade" type="button" aria-label="Reproduzir: Fim de Tarde (Ao Vivo)">
+              <img class="clipe-thumb" src="https://img.youtube.com/vi/7pOh3PVH8lE/hqdefault.jpg" alt="Fim de Tarde (Ao Vivo)" width="480" height="360" loading="lazy" />
+              <span class="clipe-play" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
+              <span class="clipe-tag">Ao vivo</span>
+            </button>
+          </div>
+          <div class="clipe-info">
+            <h3 class="clipe-titulo">Fim de Tarde</h3>
+            <span class="clipe-sub">Ao Vivo</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===================== PLATAFORMAS ===================== -->
+  <section class="plataformas">
+    <div class="plat-inner">
+      <span class="sec-kicker">Toca aí</span>
+      <h2>Ouça nas plataformas</h2>
+      <div class="plat-lista">
+        <a href="#" class="plat spotify" aria-label="Ouvir no Spotify">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm4.6 14.4a.62.62 0 0 1-.86.21c-2.35-1.44-5.3-1.76-8.79-.96a.62.62 0 1 1-.28-1.22c3.8-.87 7.08-.5 9.72 1.11.3.18.39.57.21.86zm1.23-2.73a.78.78 0 0 1-1.07.26c-2.69-1.65-6.79-2.13-9.97-1.17a.78.78 0 1 1-.45-1.5c3.64-1.1 8.16-.56 11.24 1.34.37.22.49.71.25 1.07zm.1-2.85C14.8 8.94 9.4 8.76 6.3 9.7a.94.94 0 1 1-.54-1.8c3.56-1.08 9.5-.87 13.24 1.36a.94.94 0 0 1-.96 1.61z"/></svg>
+          Spotify
+        </a>
+        <a href="https://www.youtube.com/" class="plat youtube" target="_blank" rel="noopener" aria-label="Ouvir no YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.7-1.7C19.3 5.2 12 5.2 12 5.2s-7.3 0-8.9.4a2.5 2.5 0 0 0-1.7 1.7C1 8.8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.7 1.7c1.6.4 8.9.4 8.9.4s7.3 0 8.9-.4a2.5 2.5 0 0 0 1.7-1.7c.4-1.5.4-4.7.4-4.7ZM9.8 15.1V8.9l5.4 3.1-5.4 3.1Z"/></svg>
+          YouTube
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="rodape">
+    <div class="rodape-inner">
+      <div class="rodape-copy">
+        <strong>© 2026 Grupo Zero 14</strong>
+        Todos os direitos reservados
+      </div>
+      <div class="rodape-divisor" aria-hidden="true"></div>
+      <div class="rodape-dev">
+        <img class="rodape-logo" src="assets/nebula-web.png" alt="Nebula" />
+        <div class="rodape-dev-txt">
+          Desenvolvido por
+          <strong>Nebula</strong>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Menu mobile
+    const toggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('navMenu');
+    toggle.addEventListener('click', () => {
+      const aberto = menu.classList.toggle('aberto');
+      toggle.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+      toggle.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
+    });
+    menu.querySelectorAll('a').forEach(a =>
+      a.addEventListener('click', () => {
+        menu.classList.remove('aberto');
+        toggle.setAttribute('aria-expanded', 'false');
+      })
+    );
+
+    // Navbar: transparente sobre o cabeçalho azul -> sólida ao rolar
+    const navbar = document.getElementById('navbar');
+    const topo = document.getElementById('topo');
+    function atualizarNavbar() {
+      const gatilho = topo.offsetHeight - navbar.offsetHeight;
+      navbar.classList.toggle('solido', window.scrollY > gatilho);
+    }
+    window.addEventListener('scroll', atualizarNavbar, { passive: true });
+    window.addEventListener('resize', atualizarNavbar);
+    window.addEventListener('load', atualizarNavbar);
+    atualizarNavbar();
+
+    // Clipes: carrega o player do YouTube só ao clicar na capa
+    document.querySelectorAll('.clipe-facade').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const media = btn.closest('.clipe-media');
+        const id = media.dataset.video;
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0';
+        iframe.title = btn.getAttribute('aria-label');
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+        media.innerHTML = '';
+        media.appendChild(iframe);
+      });
+    });
+
+    // Entrada dos clipes (stagger) ao aparecer na tela
+    const grid = document.getElementById('clipesGrid');
+    if (grid) {
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((ents, obs) => {
+          ents.forEach(e => { if (e.isIntersecting) { grid.classList.add('visivel'); obs.disconnect(); } });
+        }, { threshold: 0.12 });
+        io.observe(grid);
+      } else {
+        grid.classList.add('visivel');
+      }
+    }
+  </script>
+
+</body>
+</html>

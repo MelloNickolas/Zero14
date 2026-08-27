@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Zero14.Application\Zero14.Application.csproj" />
+    <ProjectReference Include="..\Zero14.Repository\Zero14.Repository.csproj" />
+    <ProjectReference Include="..\Zero14.Domain\Zero14.Domain.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

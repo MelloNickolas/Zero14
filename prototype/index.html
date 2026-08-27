@@ -230,12 +230,35 @@
     @media (max-width: 549px) {
       .video { background-image: url('assets/Video-Small.png'); }
     }
+    /* coluna: player + botão "ver todas as músicas" */
+    .video-col {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+      margin-bottom: 5%;
+    }
+    .video-cta {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--display); font-size: 20px; letter-spacing: .5px; text-transform: uppercase;
+      text-decoration: none;
+      background: var(--amarelo); color: var(--tinta);
+      border: 3px solid var(--tinta); border-radius: 14px 22px 14px 20px;
+      box-shadow: 5px 5px 0 var(--tinta);
+      padding: 12px 30px; transform: rotate(-1.4deg);
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .video-cta:hover { transform: rotate(0deg) translateY(-3px); box-shadow: 8px 8px 0 var(--tinta); background: #ffd23f; }
+    .video-cta:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
     .video-wrap {
       position: relative;
       z-index: 2;
       width: 100%;
       max-width: 540px;
-      margin-bottom: 5%;
       aspect-ratio: 16 / 9;
       border-radius: 14px;
       overflow: hidden;
@@ -760,16 +783,22 @@
       </div>
     </div>
 
-    <div class="video-wrap" id="videoWrap">
-      <button class="video-facade" id="videoFacade" type="button" aria-label="Reproduzir vídeo: Grupo Zero 14 - Love Love (Clipe Oficial)">
-        <img class="video-thumb"
-             src="https://img.youtube.com/vi/7pOh3PVH8lE/maxresdefault.jpg"
-             alt="Grupo Zero 14 - Love Love (Clipe Oficial)"
-             onerror="this.onerror=null;this.src='https://img.youtube.com/vi/7pOh3PVH8lE/hqdefault.jpg';" />
-        <span class="video-play" aria-hidden="true">
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
-        </span>
-      </button>
+    <div class="video-col">
+      <div class="video-wrap" id="videoWrap">
+        <button class="video-facade" id="videoFacade" type="button" aria-label="Reproduzir vídeo: Grupo Zero 14 - Love Love (Clipe Oficial)">
+          <img class="video-thumb"
+               src="https://img.youtube.com/vi/7pOh3PVH8lE/maxresdefault.jpg"
+               alt="Grupo Zero 14 - Love Love (Clipe Oficial)"
+               onerror="this.onerror=null;this.src='https://img.youtube.com/vi/7pOh3PVH8lE/hqdefault.jpg';" />
+          <span class="video-play" aria-hidden="true">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="#ffffff"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </button>
+      </div>
+      <a href="musicas.html" class="video-cta">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+        Ver todas as músicas
+      </a>
     </div>
   </section>
 
