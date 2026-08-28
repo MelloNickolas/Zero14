@@ -27,15 +27,8 @@ public class Zero14DbContext : DbContext
     modelBuilder.ApplyConfiguration(new ConfiguracaoConfiguration());
     modelBuilder.ApplyConfiguration(new IntegranteConfiguration());
 
-    // usuário admin padrão (seed) — único que administra o site
-    modelBuilder.Entity<Usuario>().HasData(
-      new Usuario
-      {
-        ID = 1,
-        Nome = "Administrador",
-        Email = "admin@grupozero14.com.br",
-        SenhaHash = BCrypt.Net.BCrypt.HashPassword("AdminZero14-Crypt"),
-        CriadoEm = new DateTime(2026, 1, 1)
-      });
+    // OBS: o usuário admin NÃO é semeado aqui (HasData).
+    // Ele é criado no startup da API, lendo ADMIN_EMAIL / ADMIN_SENHA do .env,
+    // pra manter a senha fora do Git/migrations e sem drift de hash.
   }
 }

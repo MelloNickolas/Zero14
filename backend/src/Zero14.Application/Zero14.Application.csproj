@@ -2,6 +2,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Zero14.Domain\Zero14.Domain.csproj" />
+    <ProjectReference Include="..\Zero14.Repository\Zero14.Repository.csproj" />
+    <ProjectReference Include="..\Zero14.Services\Zero14.Services.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

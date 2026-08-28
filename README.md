@@ -30,17 +30,17 @@ O visual segue um estilo **"sketch / desenho a giz"** — traços de marcador, s
 🔗 **Protótipo ao vivo:** [mellonickolas.github.io/Zero14/prototype](https://mellonickolas.github.io/Zero14/prototype/index.html) · Código em [`prototype/`](prototype/) · Vídeo: [`README-Assets/Video-Prototype.mp4`](README-Assets/Video-Prototype.mp4)
 
 ### Home
-![Home — Hero](README-Assets/screenshots/01-home-hero.png)
-![Home — Assista agora + Números](README-Assets/screenshots/02-home-video-numeros.png)
-![Home — Agenda](README-Assets/screenshots/03-home-agenda-contato.png)
-![Home — Fotos](README-Assets/screenshots/04-fotos.png)
-![Home — Contato](README-Assets/screenshots/05-Contatos.png)
-![Home — Recados](README-Assets/screenshots/06-Recados.png)
+![Home — Hero](README-Assets/Screenshots/01-home-hero.png)
+![Home — Assista agora + Números](README-Assets/Screenshots/02-home-video-numeros.png)
+![Home — Agenda](README-Assets/Screenshots/03-home-agenda-contato.png)
+![Home — Fotos](README-Assets/Screenshots/04-fotos.png)
+![Home — Contato](README-Assets/Screenshots/05-Contatos.png)
+![Home — Recados](README-Assets/Screenshots/06-Recados.png)
 
 ### Responsivo (mobile)
 <p align="center">
-  <img src="README-Assets/screenshots/07-mobile-home.png" alt="Home no mobile" width="260" />
-  <img src="README-Assets/screenshots/08-mobile-shows.png" alt="Shows no mobile" width="260" />
+  <img src="README-Assets/Screenshots/07-mobile-home.png" alt="Home no mobile" width="260" />
+  <img src="README-Assets/Screenshots/08-mobile-shows.png" alt="Shows no mobile" width="260" />
 </p>
 
 ## ✨ Funcionalidades
