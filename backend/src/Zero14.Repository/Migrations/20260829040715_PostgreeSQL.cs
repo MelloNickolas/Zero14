@@ -5,7 +5,7 @@
 namespace Zero14.Repository.Migrations
 {
     /// <inheritdoc />
-    public partial class NewRepositories : Migration
+    public partial class PostgreeSQL : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

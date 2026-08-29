@@ -13,17 +13,22 @@ using Zero14.Repository.Interfaces;
 using Zero14.Services.HashService;
 using Zero14.Services.Interfaces;
 using Zero14.Services.TokenService;
+using Zero14.Services.UploadService;
 
-// carrega o .env (sobe as pastas até encontrar o arquivo em backend/)
-Env.TraversePath().Load();
+// carrega o .env em dev (sobe as pastas até achar). Em produção (Render) as
+// variáveis vêm do ambiente, então o .env pode não existir — por isso o try/catch.
+try { Env.TraversePath().Load(); } catch { /* sem .env: usa variáveis do ambiente */ }
+
+// Npgsql: trata DateTime como 'timestamp without time zone' (evita erro de fuso nas datas)
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.AddEnvironmentVariables();
 
 // ===================== BANCO =====================
-var connectionString = builder.Configuration["CONNECTION_STRING"];
+var connectionString = ConexaoHelper.Normalizar(builder.Configuration["CONNECTION_STRING"]);
 builder.Services.AddDbContext<Zero14DbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseNpgsql(connectionString));
 
 // ===================== REPOSITÓRIOS =====================
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
@@ -47,13 +52,17 @@ builder.Services.AddScoped<IAutenticacaoApplication, AutenticacaoApplication>();
 // ===================== SERVICES (infra) =====================
 builder.Services.AddScoped<IHashService, HashService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IUploadService, UploadService>();
 
-// ===================== CORS (libera o front Vite) =====================
+// ===================== CORS (origens vêm do .env/ambiente) =====================
+// CORS_ORIGINS = lista separada por vírgula (ex: "http://localhost:5173,https://zero14.vercel.app")
+var origensCors = (builder.Configuration["CORS_ORIGINS"] ?? "http://localhost:5173")
+    .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy =>
     {
-        policy.WithOrigins("http://localhost:5173")
+        policy.WithOrigins(origensCors)
               .AllowAnyHeader()
               .AllowAnyMethod();
     });
@@ -110,6 +119,25 @@ builder.Services.AddSwaggerGen(options =>
 
 var app = builder.Build();
 
+// ===================== COMANDO DE RESET DE SENHA (uso do dev, via terminal) =====================
+// Uso:  dotnet run --project src/Zero14.API -- reset-senha <email> <novaSenha>
+// Troca a senha direto (não pede a antiga) e encerra sem subir a API.
+if (args.Length >= 3 && args[0] == "reset-senha")
+{
+    using var scopeReset = app.Services.CreateScope();
+    var usuarioApp = scopeReset.ServiceProvider.GetRequiredService<IUsuarioApplication>();
+    try
+    {
+        await usuarioApp.RedefinirSenhaAsync(args[1], args[2]);
+        Console.WriteLine($"[OK] Senha do usuário '{args[1]}' redefinida com sucesso.");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[ERRO] {ex.Message}");
+    }
+    return;
+}
+
 // ===================== SEED DO ADMIN (lendo o .env) =====================
 using (var scope = app.Services.CreateScope())
 {
@@ -154,5 +182,8 @@ app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+// health-check (público, sem tocar no banco) — usado pelo keep-alive (UptimeRobot)
+app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
 
 app.Run();

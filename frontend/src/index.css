@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+/* ===== Tema Zero 14 (paleta + fontes do protótipo) ===== */
+@theme {
+  --color-azul: #1E27EB;
+  --color-amarelo: #F5C518;
+  --color-vermelho: #E12E27;
+  --color-verde: #22C55E;
+  --color-tinta: #14171C;
+  --color-creme: #faf8f2;
+
+  --font-display: "Kalam", "Comic Sans MS", cursive;   /* títulos / giz */
+  --font-mao: "Patrick Hand", "Comic Sans MS", cursive; /* manuscrito */
+  --font-corpo: "Poppins", ui-sans-serif, system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--font-corpo);
+  color: var(--color-tinta);
+  background: #f4f5f7;
+}
+
+/* textura de giz reutilizável (ruído SVG) */
+.textura-giz::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: .1;
+}
+
+/* marquees (usados na Home e no protótipo) */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee-scroll 22s linear infinite; }
+.animate-marquee-slow { animation: marquee-scroll 44s linear infinite; }
+.animate-marquee-rev { animation: marquee-scroll 44s linear infinite reverse; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; scroll-behavior: auto !important; }
+  .animate-marquee, .animate-marquee-slow, .animate-marquee-rev { animation: none !important; }
+}

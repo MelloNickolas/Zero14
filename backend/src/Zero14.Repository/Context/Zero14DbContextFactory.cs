@@ -10,12 +10,17 @@ public class Zero14DbContextFactory : IDesignTimeDbContextFactory<Zero14DbContex
 {
   public Zero14DbContext CreateDbContext(string[] args)
   {
-    // sobe as pastas até achar o backend/.env
-    Env.TraversePath().Load();
+    AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+    try { Env.TraversePath().Load(); } catch { /* ignora */ }
     var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
 
+    // fallback só pra "migrations add" (que não conecta no banco)
+    if (string.IsNullOrWhiteSpace(connectionString))
+      connectionString = "Host=localhost;Database=zero14;Username=postgres;Password=postgres";
+
     var optionsBuilder = new DbContextOptionsBuilder<Zero14DbContext>();
-    optionsBuilder.UseSqlServer(connectionString);
+    optionsBuilder.UseNpgsql(ConexaoHelper.Normalizar(connectionString));
 
     return new Zero14DbContext(optionsBuilder.Options);
   }

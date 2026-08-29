@@ -1,16 +1,19 @@
 using Zero14.Domain.Entities;
 using Zero14.Repository.Interfaces;
 using Zero14.Application.Interfaces;
+using Zero14.Services.Interfaces;
 
 namespace Zero14.Application;
 
 public class UsuarioApplication : IUsuarioApplication
 {
   private readonly IUsuarioRepository _usuarioRepository;
+  private readonly IHashService _hashService;
 
-  public UsuarioApplication(IUsuarioRepository usuarioRepository)
+  public UsuarioApplication(IUsuarioRepository usuarioRepository, IHashService hashService)
   {
     _usuarioRepository = usuarioRepository;
+    _hashService = hashService;
   }
 
   public async Task<Usuario> ObterUsuarioPorIdAsync(int usuarioID)
@@ -29,6 +32,20 @@ public class UsuarioApplication : IUsuarioApplication
     usuarioExistente.Email = usuario.Email;
 
     await _usuarioRepository.AtualizarAsync(usuarioExistente);
+  }
+
+  // RESET de emergência (uso do dev, via terminal). Não pede a senha antiga.
+  public async Task RedefinirSenhaAsync(string email, string novaSenha)
+  {
+    var usuario = await _usuarioRepository.ObterPorEmailAsync(email);
+    if (usuario == null)
+      throw new Exception($"Nenhum usuário encontrado com o email '{email}'.");
+
+    if (string.IsNullOrWhiteSpace(novaSenha) || novaSenha.Length < 6)
+      throw new Exception("A nova senha deve ter pelo menos 6 caracteres.");
+
+    usuario.SenhaHash = _hashService.GerarHash(novaSenha);
+    await _usuarioRepository.AtualizarAsync(usuario);
   }
 
   #region Úteis
