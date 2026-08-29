@@ -127,7 +127,7 @@ export default function Home() {
       </section>
 
       {/* ===== ASSISTA AGORA ===== */}
-      <section id="assista" className="relative flex min-h-dvh items-end justify-center overflow-hidden bg-azul pt-28">
+      <section id="assista" className="relative flex min-h-dvh items-end justify-center overflow-hidden bg-azul pt-28 max-[749px]:items-start">
         <picture>
           <source media="(max-width:549px)" srcSet="/assets/Video-Small.png" />
           <source media="(max-width:749px)" srcSet="/assets/Video-Mobile.png" />
@@ -135,12 +135,12 @@ export default function Home() {
           <img src="/assets/Video-Desktop.png" alt="" className="absolute inset-0 h-full w-full object-cover object-bottom" />
         </picture>
         {/* marquee inclinado (uma vazada, outra sólida) */}
-        <div className="pointer-events-none absolute inset-x-[-8%] top-[70%] z-[1] -translate-y-1/2 -rotate-[5deg] overflow-hidden">
+        <div className="pointer-events-none absolute inset-x-[-8%] top-[70%] z-[1] -translate-y-1/2 -rotate-[5deg] overflow-hidden max-[749px]:top-[185px]">
           <div className="flex whitespace-nowrap animate-marquee">
             {Array.from({ length: 12 }).map((_, i) => (
               <span
                 key={i}
-                className="pr-11 font-display text-[clamp(38px,6.5vw,76px)] uppercase leading-none tracking-[2px]"
+                className="pr-11 font-display text-[clamp(38px,6.5vw,76px)] uppercase leading-none tracking-[2px] max-[749px]:text-[clamp(30px,9vw,46px)]"
                 style={i % 2 === 0 ? { color: 'transparent', WebkitTextStroke: '1.6px rgba(30,39,235,.7)' } : { color: 'var(--color-azul)' }}
               >
                 Assista agora •
@@ -150,7 +150,7 @@ export default function Home() {
         </div>
 
         <div className="relative z-[2] mb-[5%] flex w-full flex-col items-center gap-6 px-6">
-          <div className="aspect-video w-full max-w-[540px] overflow-hidden rounded-2xl border-[3px] border-tinta bg-black shadow-[0_20px_50px_rgba(0,0,0,.35)]">
+          <div className="aspect-video w-full max-w-[540px] overflow-hidden rounded-2xl border-[3px] border-tinta bg-black shadow-[0_20px_50px_rgba(0,0,0,.35)] max-[749px]:max-w-[260px]">
             {videoAberto ? (
               <iframe className="h-full w-full" src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`} title="Grupo Zero 14" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
             ) : (

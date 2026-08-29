@@ -71,7 +71,7 @@ export default function Navbar({
         </div>
 
         <Link to="/" className="mx-auto flex shrink-0 items-center min-[901px]:mx-6" aria-label="Grupo Zero 14 - início">
-          <img src={solido ? '/assets/logo-preta-nav.png' : '/assets/logo-branca-nav.png'} alt="Grupo Zero 14" className="h-14 w-auto" />
+          <img src={solido ? '/assets/logo-preta-nav.png' : '/assets/logo-branca-nav.png'} alt="Grupo Zero 14" className="h-14 w-auto max-[900px]:h-11" />
         </Link>
 
         <div className="hidden flex-1 items-center justify-start gap-[30px] min-[901px]:flex">
