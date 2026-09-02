@@ -138,6 +138,52 @@ if (args.Length >= 3 && args[0] == "reset-senha")
     return;
 }
 
+// ===================== COMANDO DE TROCA DO ADMIN (uso do dev, via terminal) =====================
+// Uso:  dotnet run --project src/Zero14.API -- reset-admin <novoEmail> <novaSenha>
+// Troca o e-mail E a senha do admin único de uma vez. As credenciais antigas param de funcionar.
+// Encerra sem subir a API.
+if (args.Length >= 3 && args[0] == "reset-admin")
+{
+    using var scopeAdmin = app.Services.CreateScope();
+    var db = scopeAdmin.ServiceProvider.GetRequiredService<Zero14DbContext>();
+    var hashService = scopeAdmin.ServiceProvider.GetRequiredService<IHashService>();
+    try
+    {
+        var novoEmail = args[1];
+        var novaSenha = args[2];
+
+        if (string.IsNullOrWhiteSpace(novoEmail) || !novoEmail.Contains('@'))
+            throw new Exception("Informe um e-mail válido.");
+        if (string.IsNullOrWhiteSpace(novaSenha) || novaSenha.Length < 6)
+            throw new Exception("A nova senha deve ter pelo menos 6 caracteres.");
+
+        var admin = db.Usuarios.OrderBy(usuario => usuario.ID).FirstOrDefault();
+        if (admin == null)
+        {
+            db.Usuarios.Add(new Usuario
+            {
+                Nome = "Administrador",
+                Email = novoEmail,
+                SenhaHash = hashService.GerarHash(novaSenha),
+                CriadoEm = DateTime.UtcNow
+            });
+            Console.WriteLine($"[OK] Admin criado com o e-mail '{novoEmail}'.");
+        }
+        else
+        {
+            admin.Email = novoEmail;
+            admin.SenhaHash = hashService.GerarHash(novaSenha);
+            Console.WriteLine($"[OK] Admin atualizado. Novo login: '{novoEmail}'. As credenciais antigas nao funcionam mais.");
+        }
+        db.SaveChanges();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"[ERRO] {ex.Message}");
+    }
+    return;
+}
+
 // ===================== SEED DO ADMIN (lendo o .env) =====================
 using (var scope = app.Services.CreateScope())
 {
