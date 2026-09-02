@@ -108,6 +108,7 @@ export default function Home() {
   const emailImprensa = config?.emailImprensa || 'parcerias@grupozero14.com.br';
   const instagram = config?.instagram || 'https://www.instagram.com/grupozero14/';
   const youtube = config?.youtube || '#';
+  const fotoContato = config?.fotoContatoUrl || '/assets/grupo-recorte.png';
 
   const btnVerMais = 'inline-block -rotate-1 rounded-[16px_26px_18px_24px] border-[3px] border-tinta bg-azul px-9 py-2.5 font-display text-xl uppercase text-white shadow-[5px_5px_0_var(--color-tinta)] transition hover:rotate-0 hover:-translate-y-0.5';
   const seta = 'flex h-[50px] w-[50px] items-center justify-center rounded-full border-[3px] border-tinta bg-white text-azul shadow-[3px_3px_0_var(--color-tinta)] transition hover:bg-amarelo hover:text-tinta';
@@ -250,8 +251,8 @@ export default function Home() {
           <div className="grid items-center gap-10 md:grid-cols-2">
             <div className="mx-auto max-w-[360px]">
               <picture>
-                <source srcSet="/assets/grupo-recorte.webp" type="image/webp" />
-                <img src="/assets/grupo-recorte.png" width={543} height={749} alt="Integrantes do Grupo Zero 14" loading="lazy" className="w-full [filter:drop-shadow(4px_6px_0_rgba(20,23,28,.22))_drop-shadow(0_10px_16px_rgba(20,23,28,.18))]" />
+                {!config?.fotoContatoUrl && <source srcSet="/assets/grupo-recorte.webp" type="image/webp" />}
+                <img src={fotoContato} width={543} height={749} alt="Integrantes do Grupo Zero 14" loading="lazy" className="w-full [filter:drop-shadow(4px_6px_0_rgba(20,23,28,.22))_drop-shadow(0_10px_16px_rgba(20,23,28,.18))]" />
               </picture>
             </div>
             <div className="flex flex-col gap-7 max-md:items-center">

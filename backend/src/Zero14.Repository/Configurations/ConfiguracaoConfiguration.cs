@@ -12,11 +12,14 @@ public class ConfiguracaoConfiguration : IEntityTypeConfiguration<Configuracao>
     builder.HasKey(configuracao => configuracao.ID);
 
     builder.Property(configuracao => configuracao.Telefone).HasMaxLength(30);
+    builder.Property(configuracao => configuracao.WhatsApp).HasMaxLength(30);
     builder.Property(configuracao => configuracao.EmailShows).HasMaxLength(180);
     builder.Property(configuracao => configuracao.EmailImprensa).HasMaxLength(180);
     builder.Property(configuracao => configuracao.Instagram).HasMaxLength(300);
     builder.Property(configuracao => configuracao.Youtube).HasMaxLength(300);
     builder.Property(configuracao => configuracao.Spotify).HasMaxLength(300);
+    builder.Property(configuracao => configuracao.Portfolio).HasMaxLength(300);
+    builder.Property(configuracao => configuracao.FotoContatoUrl).HasMaxLength(500);
     builder.Property(configuracao => configuracao.BiografiaTexto).HasMaxLength(4000);
   }
 }

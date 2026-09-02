@@ -88,7 +88,7 @@ export default function Biografia() {
           <img src="/assets/biografia-assets/biografia-desktop-web.jpg" alt="Grupo Zero 14" className="block w-full" />
         </picture>
 
-        <div className="flex flex-col bg-azul px-6 py-11 text-white [background:#1E27EB_url('/assets/bg-blue-texture.jpg')_center/cover] md:absolute md:inset-y-0 md:right-0 md:h-full md:w-2/5 md:min-w-[360px] md:bg-none md:px-[clamp(30px,4vw,64px)] md:py-[20vh]">
+        <div className="flex flex-col bg-azul px-6 py-11 text-white [background:#1E27EB_url('/assets/bg-blue-texture.jpg')_center/cover] md:absolute md:inset-y-0 md:right-0 md:h-full md:w-2/5 md:min-w-[360px] md:px-[clamp(30px,4vw,64px)] md:py-[20vh]">
           <span className="text-[13px] font-semibold uppercase tracking-[3px] text-amarelo">Conheça o grupo</span>
           <h1 className="mt-1.5 font-display text-[clamp(48px,7vw,92px)] uppercase leading-none">Biografia</h1>
           <svg viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true" className="mb-6 mt-2.5 block h-3.5 w-[210px]"><path d="M3 9 C 45 2, 78 12, 118 7 S 196 2, 234 8 S 286 5, 297 7" fill="none" stroke="#E12E27" strokeWidth="4.5" strokeLinecap="round" /></svg>

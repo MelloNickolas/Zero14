@@ -30,11 +30,14 @@ public class ConfiguracaoApplication : IConfiguracaoApplication
     Configuracao configuracaoExistente = await ObterConfiguracaoAsync();
 
     configuracaoExistente.Telefone = configuracao.Telefone;
+    configuracaoExistente.WhatsApp = configuracao.WhatsApp;
     configuracaoExistente.EmailShows = configuracao.EmailShows;
     configuracaoExistente.EmailImprensa = configuracao.EmailImprensa;
     configuracaoExistente.Instagram = configuracao.Instagram;
     configuracaoExistente.Youtube = configuracao.Youtube;
     configuracaoExistente.Spotify = configuracao.Spotify;
+    configuracaoExistente.Portfolio = configuracao.Portfolio;
+    configuracaoExistente.FotoContatoUrl = configuracao.FotoContatoUrl;
     configuracaoExistente.BiografiaTexto = configuracao.BiografiaTexto;
 
     await _configuracaoRepository.AtualizarAsync(configuracaoExistente);

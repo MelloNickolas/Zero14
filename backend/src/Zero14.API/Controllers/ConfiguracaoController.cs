@@ -30,11 +30,14 @@ public class ConfiguracaoController : ControllerBase
       {
         ID = config.ID,
         Telefone = config.Telefone,
+        WhatsApp = config.WhatsApp,
         EmailShows = config.EmailShows,
         EmailImprensa = config.EmailImprensa,
         Instagram = config.Instagram,
         Youtube = config.Youtube,
         Spotify = config.Spotify,
+        Portfolio = config.Portfolio,
+        FotoContatoUrl = config.FotoContatoUrl,
         BiografiaTexto = config.BiografiaTexto
       };
 
@@ -57,11 +60,14 @@ public class ConfiguracaoController : ControllerBase
       var config = new Configuracao
       {
         Telefone = request.Telefone,
+        WhatsApp = request.WhatsApp,
         EmailShows = request.EmailShows,
         EmailImprensa = request.EmailImprensa,
         Instagram = request.Instagram,
         Youtube = request.Youtube,
         Spotify = request.Spotify,
+        Portfolio = request.Portfolio,
+        FotoContatoUrl = request.FotoContatoUrl,
         BiografiaTexto = request.BiografiaTexto
       };
 

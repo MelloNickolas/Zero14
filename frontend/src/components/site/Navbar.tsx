@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import ConfiguracaoApi from '../../services/configuracaoApi';
 
-export type NavItem = { label: string; to: string; tipo: 'route' | 'anchor' | 'ext'; ativo?: boolean };
+// configKey: quando presente, a URL do link vem da configuração do admin (ex.: portfólio)
+export type NavItem = { label: string; to: string; tipo: 'route' | 'anchor' | 'ext'; ativo?: boolean; configKey?: 'portfolio' };
 
 // Nav padrão = index.html do protótipo
 const ESQUERDA_PADRAO: NavItem[] = [
@@ -12,7 +14,7 @@ const ESQUERDA_PADRAO: NavItem[] = [
 const DIREITA_PADRAO: NavItem[] = [
   { label: 'Contato', to: '#contato', tipo: 'anchor' },
   { label: 'Feedbacks', to: '#feedbacks', tipo: 'anchor' },
-  { label: 'Instagram', to: 'https://www.instagram.com/grupozero14/', tipo: 'ext' },
+  { label: 'Portfolio', to: '#', tipo: 'ext', configKey: 'portfolio' },
 ];
 
 export default function Navbar({
@@ -28,6 +30,11 @@ export default function Navbar({
 }) {
   const [solido, setSolido] = useState(variant === 'solid');
   const [aberto, setAberto] = useState(false);
+  const [portfolioUrl, setPortfolioUrl] = useState('');
+
+  useEffect(() => {
+    ConfiguracaoApi.obter().then((c) => setPortfolioUrl(c.portfolio ?? '')).catch(() => {});
+  }, []);
 
   useEffect(() => {
     if (variant !== 'hero') return;
@@ -45,9 +52,10 @@ export default function Navbar({
       : 'text-white [text-shadow:0_1px_6px_rgba(0,0,0,.35)] hover:text-vermelho after:bg-vermelho');
 
   const renderLink = (l: NavItem, cls: string, onClick?: () => void) => {
-    if (l.tipo === 'route') return <Link key={l.label} to={l.to} className={cls} onClick={onClick}>{l.label}</Link>;
-    if (l.tipo === 'ext') return <a key={l.label} href={l.to} target="_blank" rel="noopener" className={cls} onClick={onClick}>{l.label}</a>;
-    return <a key={l.label} href={l.to} className={cls} onClick={onClick}>{l.label}</a>;
+    const href = l.configKey === 'portfolio' ? (portfolioUrl || l.to) : l.to;
+    if (l.tipo === 'route') return <Link key={l.label} to={href} className={cls} onClick={onClick}>{l.label}</Link>;
+    if (l.tipo === 'ext') return <a key={l.label} href={href} target="_blank" rel="noopener" className={cls} onClick={onClick}>{l.label}</a>;
+    return <a key={l.label} href={href} className={cls} onClick={onClick}>{l.label}</a>;
   };
 
   return (

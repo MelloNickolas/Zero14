@@ -8,6 +8,11 @@ export default function UploadImagem({ valor, onChange }: { valor: string; onCha
   async function selecionar(e: ChangeEvent<HTMLInputElement>) {
     const arquivo = e.target.files?.[0];
     if (!arquivo) return;
+    if (arquivo.size > 10 * 1024 * 1024) {
+      setErro('Imagem muito grande (máx. 10 MB). Reduza o tamanho e tente de novo.');
+      e.target.value = '';
+      return;
+    }
     setEnviando(true); setErro('');
     try {
       const url = await UploadApi.enviarImagem(arquivo);

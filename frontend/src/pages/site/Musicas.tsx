@@ -27,7 +27,7 @@ const ESQUERDA: NavItem[] = [
 const DIREITA: NavItem[] = [
   { label: 'Fotos', to: '/galeria', tipo: 'route' },
   { label: 'Contato', to: '/#contato', tipo: 'anchor' },
-  { label: 'Instagram', to: 'https://www.instagram.com/grupozero14/', tipo: 'ext' },
+  { label: 'Portfolio', to: '#', tipo: 'ext', configKey: 'portfolio' },
 ];
 
 export default function Musicas() {

@@ -49,11 +49,14 @@ export interface Comentario {
 export interface Configuracao {
   id: number;
   telefone: string;
+  whatsApp: string;
   emailShows: string;
   emailImprensa: string;
   instagram: string;
   youtube: string;
   spotify: string;
+  portfolio: string;
+  fotoContatoUrl: string;
   biografiaTexto: string;
 }
 
