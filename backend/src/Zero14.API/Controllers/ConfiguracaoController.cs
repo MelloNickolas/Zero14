@@ -36,6 +36,8 @@ public class ConfiguracaoController : ControllerBase
         Instagram = config.Instagram,
         Youtube = config.Youtube,
         Spotify = config.Spotify,
+        Tiktok = config.Tiktok,
+        SeguidoresInstagram = config.SeguidoresInstagram,
         Portfolio = config.Portfolio,
         FotoContatoUrl = config.FotoContatoUrl,
         BiografiaTexto = config.BiografiaTexto
@@ -66,6 +68,8 @@ public class ConfiguracaoController : ControllerBase
         Instagram = request.Instagram,
         Youtube = request.Youtube,
         Spotify = request.Spotify,
+        Tiktok = request.Tiktok,
+        SeguidoresInstagram = request.SeguidoresInstagram,
         Portfolio = request.Portfolio,
         FotoContatoUrl = request.FotoContatoUrl,
         BiografiaTexto = request.BiografiaTexto

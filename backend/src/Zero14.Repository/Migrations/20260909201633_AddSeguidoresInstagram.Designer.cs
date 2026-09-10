@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Zero14.Repository.Context;
@@ -11,9 +12,11 @@ using Zero14.Repository.Context;
 namespace Zero14.Repository.Migrations
 {
     [DbContext(typeof(Zero14DbContext))]
-    partial class Zero14DbContextModelSnapshot : ModelSnapshot
+    [Migration("20260909201633_AddSeguidoresInstagram")]
+    partial class AddSeguidoresInstagram
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,11 +106,6 @@ namespace Zero14.Repository.Migrations
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)");
-
-                    b.Property<string>("Tiktok")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("character varying(300)");
 
                     b.Property<string>("WhatsApp")
                         .IsRequired()
@@ -258,43 +256,6 @@ namespace Zero14.Repository.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Musicas", (string)null);
-                });
-
-            modelBuilder.Entity("Zero14.Domain.Entities.Patrocinador", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
-
-                    b.Property<int>("Cliques")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValue(0);
-
-                    b.Property<string>("Link")
-                        .HasMaxLength(300)
-                        .HasColumnType("character varying(300)");
-
-                    b.Property<string>("LogoUrl")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
-
-                    b.Property<string>("Nome")
-                        .IsRequired()
-                        .HasMaxLength(120)
-                        .HasColumnType("character varying(120)");
-
-                    b.Property<int>("Ordem")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasDefaultValue(0);
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Patrocinadores", (string)null);
                 });
 
             modelBuilder.Entity("Zero14.Domain.Entities.Usuario", b =>

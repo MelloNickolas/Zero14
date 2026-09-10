@@ -55,9 +55,27 @@ export interface Configuracao {
   instagram: string;
   youtube: string;
   spotify: string;
+  tiktok: string;
+  seguidoresInstagram: number;
   portfolio: string;
   fotoContatoUrl: string;
   biografiaTexto: string;
+}
+
+export interface Patrocinador {
+  id: number;
+  nome: string;
+  logoUrl: string;
+  link: string;
+  cliques: number;
+  ordem: number;
+}
+
+export interface Estatisticas {
+  showsRealizados: number;
+  seguidores: number;
+  recados: number;
+  cidades: number;
 }
 
 export interface LoginResponse {

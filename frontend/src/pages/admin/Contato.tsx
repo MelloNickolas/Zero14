@@ -4,10 +4,10 @@ import UploadImagem from '../../components/admin/UploadImagem';
 
 type Form = {
   telefone: string; whatsApp: string; emailShows: string; emailImprensa: string;
-  instagram: string; youtube: string; spotify: string;
+  instagram: string; youtube: string; spotify: string; tiktok: string; seguidoresInstagram: number;
   portfolio: string; fotoContatoUrl: string; biografiaTexto: string;
 };
-const VAZIO: Form = { telefone: '', whatsApp: '', emailShows: '', emailImprensa: '', instagram: '', youtube: '', spotify: '', portfolio: '', fotoContatoUrl: '', biografiaTexto: '' };
+const VAZIO: Form = { telefone: '', whatsApp: '', emailShows: '', emailImprensa: '', instagram: '', youtube: '', spotify: '', tiktok: '', seguidoresInstagram: 14000, portfolio: '', fotoContatoUrl: '', biografiaTexto: '' };
 
 export default function AdminContato() {
   const [form, setForm] = useState<Form>(VAZIO);
@@ -19,7 +19,7 @@ export default function AdminContato() {
     ConfiguracaoApi.obter()
       .then((c) => setForm({
         telefone: c.telefone ?? '', whatsApp: c.whatsApp ?? '', emailShows: c.emailShows ?? '', emailImprensa: c.emailImprensa ?? '',
-        instagram: c.instagram ?? '', youtube: c.youtube ?? '', spotify: c.spotify ?? '',
+        instagram: c.instagram ?? '', youtube: c.youtube ?? '', spotify: c.spotify ?? '', tiktok: c.tiktok ?? '', seguidoresInstagram: c.seguidoresInstagram ?? 14000,
         portfolio: c.portfolio ?? '', fotoContatoUrl: c.fotoContatoUrl ?? '', biografiaTexto: c.biografiaTexto ?? '',
       }))
       .catch(() => {})
@@ -56,7 +56,13 @@ export default function AdminContato() {
           <div><label className={label}>Instagram (URL)</label><input className={campo} value={form.instagram} onChange={(e) => setForm({ ...form, instagram: e.target.value })} /></div>
           <div><label className={label}>YouTube (URL)</label><input className={campo} value={form.youtube} onChange={(e) => setForm({ ...form, youtube: e.target.value })} /></div>
           <div><label className={label}>Spotify (URL)</label><input className={campo} value={form.spotify} onChange={(e) => setForm({ ...form, spotify: e.target.value })} /></div>
+          <div><label className={label}>TikTok (URL)</label><input className={campo} value={form.tiktok} onChange={(e) => setForm({ ...form, tiktok: e.target.value })} placeholder="https://tiktok.com/@..." /></div>
           <div><label className={label}>Portfolio (URL da navbar)</label><input className={campo} value={form.portfolio} onChange={(e) => setForm({ ...form, portfolio: e.target.value })} placeholder="https://..." /></div>
+          <div>
+            <label className={label}>Seguidores do Instagram</label>
+            <input type="number" min={0} className={campo} value={form.seguidoresInstagram} onChange={(e) => setForm({ ...form, seguidoresInstagram: Number(e.target.value) })} placeholder="14000" />
+            <p className="mt-1 text-xs text-neutral-500">Nº exibido em "Números". Atualize quando o grupo crescer.</p>
+          </div>
         </div>
 
         <label className={`${label} mt-4`}>Foto da seção de contato</label>

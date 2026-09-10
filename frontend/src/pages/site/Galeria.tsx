@@ -2,14 +2,13 @@ import { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import FotoApi from '../../services/fotoApi';
 
-const FOTOS_EXEMPLO = ['g1', 'g2', 'g3', 'g4', 'g5', 'g6'].map((g) => `/assets/galeria/web/${g}.jpg`);
-
 export default function Galeria() {
-  const [fotos, setFotos] = useState<string[]>(FOTOS_EXEMPLO);
+  const [fotos, setFotos] = useState<string[]>([]);
+  const [carregado, setCarregado] = useState(false);
   const [lb, setLb] = useState<number | null>(null);
 
   useEffect(() => {
-    FotoApi.listar().then((f) => { if (f.length) setFotos(f.map((x) => x.url)); }).catch(() => {});
+    FotoApi.listar().then((f) => setFotos(f.map((x) => x.url))).catch(() => {}).finally(() => setCarregado(true));
   }, []);
 
   const fechar = useCallback(() => setLb(null), []);
@@ -44,7 +43,15 @@ export default function Galeria() {
           <p className="mt-3 text-white/70">Registros dos shows, bastidores e da resenha do Zero 14.</p>
         </div>
 
-        {/* masonry */}
+        {fotos.length === 0 ? (
+          carregado ? (
+            <div className="mx-auto max-w-[520px] rotate-[-.6deg] rounded-[26px_18px_26px_18px] border-[3px] border-dashed border-white/30 bg-white/5 p-12 text-center">
+              <div className="font-display text-[clamp(30px,6vw,48px)] uppercase leading-none text-amarelo">Em breve</div>
+              <p className="mt-3 font-mao text-xl text-white/80">As fotos dos shows do grupo vão aparecer aqui!</p>
+            </div>
+          ) : null
+        ) : (
+        /* masonry */
         <div className="columns-1 gap-[22px] min-[480px]:columns-2 min-[760px]:columns-3 min-[1100px]:columns-4">
           {fotos.map((url, i) => (
             <figure
@@ -58,6 +65,7 @@ export default function Galeria() {
             </figure>
           ))}
         </div>
+        )}
       </div>
 
       {/* ===== LIGHTBOX ===== */}

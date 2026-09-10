@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Zero14.Repository.Context;
@@ -11,9 +12,11 @@ using Zero14.Repository.Context;
 namespace Zero14.Repository.Migrations
 {
     [DbContext(typeof(Zero14DbContext))]
-    partial class Zero14DbContextModelSnapshot : ModelSnapshot
+    [Migration("20260909204508_AddPatrocinadores")]
+    partial class AddPatrocinadores
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,11 +106,6 @@ namespace Zero14.Repository.Migrations
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)");
-
-                    b.Property<string>("Tiktok")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("character varying(300)");
 
                     b.Property<string>("WhatsApp")
                         .IsRequired()

@@ -11,12 +11,15 @@ import AdminShows from './pages/admin/Shows';
 import AdminMusicas from './pages/admin/Musicas';
 import AdminFotos from './pages/admin/Fotos';
 import AdminIntegrantes from './pages/admin/Integrantes';
+import AdminPatrocinadores from './pages/admin/Patrocinadores';
 import AdminRecados from './pages/admin/Recados';
 import AdminContato from './pages/admin/Contato';
 import ProtectedRoute from './components/ProtectedRoute';
+import WhatsAppFab from './components/site/WhatsAppFab';
 
 export default function App() {
   return (
+    <>
     <Routes>
       {/* ===== Site público ===== */}
       <Route path="/" element={<Home />} />
@@ -40,9 +43,12 @@ export default function App() {
         <Route path="fotos" element={<AdminFotos />} />
         <Route path="musicas" element={<AdminMusicas />} />
         <Route path="integrantes" element={<AdminIntegrantes />} />
+        <Route path="patrocinadores" element={<AdminPatrocinadores />} />
         <Route path="recados" element={<AdminRecados />} />
         <Route path="contato" element={<AdminContato />} />
       </Route>
     </Routes>
+    <WhatsAppFab />
+    </>
   );
 }

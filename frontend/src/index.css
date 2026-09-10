@@ -42,8 +42,31 @@ body {
 .animate-marquee { animation: marquee-scroll 22s linear infinite; }
 .animate-marquee-slow { animation: marquee-scroll 44s linear infinite; }
 .animate-marquee-rev { animation: marquee-scroll 44s linear infinite reverse; }
+/* faixa de patrocinadores (auto-scroll suave; pausa no hover) */
+.animate-logos { animation: marquee-scroll 32s linear infinite; }
+.animate-logos:hover { animation-play-state: paused; }
+/* mais lento no mobile (mais fácil de mirar/tocar) */
+@media (max-width: 767px) {
+  .animate-logos { animation-duration: 55s; }
+}
+
+/* entrada escalonada (faixa de patrocinadores) */
+@keyframes entra-baixo {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.entra-item { animation: entra-baixo .5s ease-out both; }
+
+/* flutuar suave (logo / elementos decorativos da faixa de portfólio) */
+@keyframes flutua {
+  0%, 100% { transform: translateY(0) rotate(var(--giro, 0deg)); }
+  50%      { transform: translateY(-12px) rotate(var(--giro, 0deg)); }
+}
+.flutua { animation: flutua 4.5s ease-in-out infinite; }
 
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; scroll-behavior: auto !important; }
-  .animate-marquee, .animate-marquee-slow, .animate-marquee-rev { animation: none !important; }
+  .animate-marquee, .animate-marquee-slow, .animate-marquee-rev, .animate-logos { animation: none !important; }
+  .entra-item { animation: none !important; opacity: 1 !important; }
+  .flutua { animation: none !important; }
 }

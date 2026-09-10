@@ -5,22 +5,6 @@ import IntegranteApi from '../../services/integranteApi';
 import ConfiguracaoApi from '../../services/configuracaoApi';
 import type { Integrante } from '../../services/types';
 
-const LOREM = [
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
-  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia.',
-  'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.',
-  'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
-  'Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur.',
-  'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi.',
-].join('\n\n');
-
-const INTEG_EXEMPLO: Integrante[] = [
-  { id: 1, nome: 'Fulano', papel: 'Voz e violão', fotoUrl: '/assets/biografia-assets/integrantes/1-web.jpg', descricao: 'A voz que puxa o coro e comanda o pagode do começo ao fim.', depoimento: 'Quando a gente começou a viver só de música já foi a maior conquista que a gente podia imaginar.', ordem: 1 },
-  { id: 2, nome: 'Ciclano', papel: 'Cavaquinho', fotoUrl: '/assets/biografia-assets/integrantes/2-web.jpg', descricao: 'O suingue no cavaco que dá o tempero e o balanço do grupo.', depoimento: 'Cada roda de samba é uma família nova que a gente ganha pelo caminho.', ordem: 2 },
-  { id: 3, nome: 'Beltrano', papel: 'Pandeiro', fotoUrl: '/assets/biografia-assets/integrantes/3-web.jpg', descricao: 'Marca o ritmo e não deixa a roda de samba parar nunca.', depoimento: 'Tocar pra galera cantando junto é o que move o Zero 14 todo dia.', ordem: 3 },
-  { id: 4, nome: 'Deltrano', papel: 'Percussão', fotoUrl: '/assets/biografia-assets/integrantes/4-web.jpg', descricao: 'A batida firme na percussão que faz todo mundo dançar.', depoimento: 'A gente leva o pagode de raiz com respeito e muita alegria pra todo canto.', ordem: 4 },
-];
-
 const REDES = (
   <div className="flex gap-3.5 max-md:justify-center">
     <a href="https://www.instagram.com/grupozero14/" target="_blank" rel="noopener" aria-label="Instagram" className="flex h-12 w-12 -rotate-3 items-center justify-center rounded-[13px_18px_13px_16px] border-[3px] border-tinta bg-white text-tinta shadow-[4px_4px_0_rgba(0,0,0,.35)] transition hover:-translate-y-0.5 hover:rotate-0 hover:bg-tinta hover:text-white">
@@ -37,8 +21,9 @@ const REDES = (
 
 export default function Biografia() {
   const [solido, setSolido] = useState(false);
-  const [texto, setTexto] = useState(LOREM);
-  const [integrantes, setIntegrantes] = useState<Integrante[]>(INTEG_EXEMPLO);
+  const [texto, setTexto] = useState('');
+  const [integrantes, setIntegrantes] = useState<Integrante[]>([]);
+  const [carregado, setCarregado] = useState(false);
   const [bioAberto, setBioAberto] = useState(false);
   const [depoIdx, setDepoIdx] = useState(0);
   const [trocando, setTrocando] = useState(false);
@@ -51,7 +36,7 @@ export default function Biografia() {
   }, []);
 
   useEffect(() => {
-    IntegranteApi.listar().then((is) => { if (is.length) setIntegrantes(is); }).catch(() => {});
+    IntegranteApi.listar().then(setIntegrantes).catch(() => {}).finally(() => setCarregado(true));
     ConfiguracaoApi.obter().then((c) => { if (c?.biografiaTexto?.trim()) setTexto(c.biografiaTexto); }).catch(() => {});
   }, []);
 
@@ -93,12 +78,18 @@ export default function Biografia() {
           <h1 className="mt-1.5 font-display text-[clamp(48px,7vw,92px)] uppercase leading-none">Biografia</h1>
           <svg viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true" className="mb-6 mt-2.5 block h-3.5 w-[210px]"><path d="M3 9 C 45 2, 78 12, 118 7 S 196 2, 234 8 S 286 5, 297 7" fill="none" stroke="#E12E27" strokeWidth="4.5" strokeLinecap="round" /></svg>
 
-          <div className={`space-y-4 leading-[1.8] text-white/92 transition-all ${bioAberto ? 'md:max-h-[46vh] md:overflow-y-auto' : 'max-h-[9em] overflow-hidden [mask-image:linear-gradient(to_bottom,#000_62%,transparent)]'}`}>
-            {texto.split('\n\n').map((p, i) => <p key={i}>{p}</p>)}
-          </div>
-          <button onClick={() => setBioAberto((v) => !v)} className="mt-3.5 w-max -rotate-[1.5deg] rounded-[12px_18px_12px_16px] border-[3px] border-tinta bg-amarelo px-[22px] py-1.5 font-display text-[17px] uppercase text-tinta shadow-[4px_4px_0_rgba(0,0,0,.35)] transition hover:rotate-0 hover:-translate-y-0.5">
-            {bioAberto ? 'Ver menos' : 'Ver mais'}
-          </button>
+          {texto.trim() ? (
+            <>
+              <div className={`space-y-4 leading-[1.8] text-white/92 transition-all ${bioAberto ? 'md:max-h-[46vh] md:overflow-y-auto' : 'max-h-[9em] overflow-hidden [mask-image:linear-gradient(to_bottom,#000_62%,transparent)]'}`}>
+                {texto.split('\n\n').map((p, i) => <p key={i}>{p}</p>)}
+              </div>
+              <button onClick={() => setBioAberto((v) => !v)} className="mt-3.5 w-max -rotate-[1.5deg] rounded-[12px_18px_12px_16px] border-[3px] border-tinta bg-amarelo px-[22px] py-1.5 font-display text-[17px] uppercase text-tinta shadow-[4px_4px_0_rgba(0,0,0,.35)] transition hover:rotate-0 hover:-translate-y-0.5">
+                {bioAberto ? 'Ver menos' : 'Ver mais'}
+              </button>
+            </>
+          ) : (
+            <p className="font-mao text-xl text-white/80">Em breve a história do grupo por aqui.</p>
+          )}
 
           <div className="mt-auto pt-6">
             <span className="mb-3 block font-display text-lg uppercase">Nos siga nas redes</span>
@@ -117,6 +108,14 @@ export default function Biografia() {
           </div>
         </div>
 
+        {integrantes.length === 0 ? (
+          carregado ? (
+            <div className="relative z-[1] mx-auto max-w-[520px] rotate-[-.6deg] rounded-[26px_18px_26px_18px] border-[3px] border-dashed border-tinta/40 bg-[#fffdf7] p-12 text-center shadow-[6px_6px_0_rgba(20,23,28,.12)]">
+              <div className="font-display text-[clamp(30px,6vw,48px)] uppercase leading-none text-azul">Em breve</div>
+              <p className="mt-3 font-mao text-xl text-neutral-600">Os integrantes do grupo vão aparecer aqui!</p>
+            </div>
+          ) : null
+        ) : (
         <div className="relative z-[1] mx-auto grid max-w-[1160px] grid-cols-1 gap-[26px] px-6 min-[460px]:grid-cols-2 min-[860px]:grid-cols-4">
           {integrantes.map((m, i) => (
             <div key={m.id} className={`group rounded-[18px_28px_18px_26px] border-[3px] border-tinta bg-white p-[12px_12px_22px] text-center shadow-[6px_6px_0_var(--color-tinta)] transition hover:-translate-y-1.5 hover:!rotate-0 hover:shadow-[9px_9px_0_var(--color-tinta)] ${i % 2 ? 'rotate-[1.3deg]' : 'rotate-[-1.3deg]'}`}>
@@ -129,6 +128,7 @@ export default function Biografia() {
             </div>
           ))}
         </div>
+        )}
       </section>
 
       {/* ===== DEPOIMENTOS ===== */}

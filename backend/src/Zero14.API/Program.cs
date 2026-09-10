@@ -38,6 +38,8 @@ builder.Services.AddScoped<IMusicaRepository, MusicaRepository>();
 builder.Services.AddScoped<IComentarioRepository, ComentarioRepository>();
 builder.Services.AddScoped<IConfiguracaoRepository, ConfiguracaoRepository>();
 builder.Services.AddScoped<IIntegranteRepository, IntegranteRepository>();
+builder.Services.AddScoped<IEstatisticaRepository, EstatisticaRepository>();
+builder.Services.AddScoped<IPatrocinadorRepository, PatrocinadorRepository>();
 
 // ===================== APPLICATIONS =====================
 builder.Services.AddScoped<IUsuarioApplication, UsuarioApplication>();
@@ -47,6 +49,8 @@ builder.Services.AddScoped<IMusicaApplication, MusicaApplication>();
 builder.Services.AddScoped<IComentarioApplication, ComentarioApplication>();
 builder.Services.AddScoped<IConfiguracaoApplication, ConfiguracaoApplication>();
 builder.Services.AddScoped<IIntegranteApplication, IntegranteApplication>();
+builder.Services.AddScoped<IEstatisticaApplication, EstatisticaApplication>();
+builder.Services.AddScoped<IPatrocinadorApplication, PatrocinadorApplication>();
 builder.Services.AddScoped<IAutenticacaoApplication, AutenticacaoApplication>();
 
 // ===================== SERVICES (infra) =====================

@@ -18,6 +18,8 @@ public class ConfiguracaoConfiguration : IEntityTypeConfiguration<Configuracao>
     builder.Property(configuracao => configuracao.Instagram).HasMaxLength(300);
     builder.Property(configuracao => configuracao.Youtube).HasMaxLength(300);
     builder.Property(configuracao => configuracao.Spotify).HasMaxLength(300);
+    builder.Property(configuracao => configuracao.Tiktok).HasMaxLength(300);
+    builder.Property(configuracao => configuracao.SeguidoresInstagram).HasDefaultValue(14000);
     builder.Property(configuracao => configuracao.Portfolio).HasMaxLength(300);
     builder.Property(configuracao => configuracao.FotoContatoUrl).HasMaxLength(500);
     builder.Property(configuracao => configuracao.BiografiaTexto).HasMaxLength(4000);

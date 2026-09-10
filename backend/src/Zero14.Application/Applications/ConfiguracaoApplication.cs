@@ -36,6 +36,8 @@ public class ConfiguracaoApplication : IConfiguracaoApplication
     configuracaoExistente.Instagram = configuracao.Instagram;
     configuracaoExistente.Youtube = configuracao.Youtube;
     configuracaoExistente.Spotify = configuracao.Spotify;
+    configuracaoExistente.Tiktok = configuracao.Tiktok;
+    configuracaoExistente.SeguidoresInstagram = configuracao.SeguidoresInstagram;
     configuracaoExistente.Portfolio = configuracao.Portfolio;
     configuracaoExistente.FotoContatoUrl = configuracao.FotoContatoUrl;
     configuracaoExistente.BiografiaTexto = configuracao.BiografiaTexto;

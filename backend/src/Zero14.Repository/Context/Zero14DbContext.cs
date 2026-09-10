@@ -15,6 +15,7 @@ public class Zero14DbContext : DbContext
   public DbSet<Comentario> Comentarios { get; set; } = null!;
   public DbSet<Configuracao> Configuracoes { get; set; } = null!;
   public DbSet<Integrante> Integrantes { get; set; } = null!;
+  public DbSet<Patrocinador> Patrocinadores { get; set; } = null!;
 
   protected override void OnModelCreating(ModelBuilder modelBuilder)
   {
@@ -26,6 +27,7 @@ public class Zero14DbContext : DbContext
     modelBuilder.ApplyConfiguration(new ComentarioConfiguration());
     modelBuilder.ApplyConfiguration(new ConfiguracaoConfiguration());
     modelBuilder.ApplyConfiguration(new IntegranteConfiguration());
+    modelBuilder.ApplyConfiguration(new PatrocinadorConfiguration());
 
     // OBS: o usuário admin NÃO é semeado aqui (HasData).
     // Ele é criado no startup da API, lendo ADMIN_EMAIL / ADMIN_SENHA do .env,

@@ -10,6 +10,8 @@ public class ConfiguracaoResponse
   public string Instagram { get; set; } = string.Empty;
   public string Youtube { get; set; } = string.Empty;
   public string Spotify { get; set; } = string.Empty;
+  public string Tiktok { get; set; } = string.Empty;
+  public int SeguidoresInstagram { get; set; } = 14000;
   public string Portfolio { get; set; } = string.Empty;
   public string FotoContatoUrl { get; set; } = string.Empty;
   public string BiografiaTexto { get; set; } = string.Empty;

@@ -1,7 +1,7 @@
 import { useState, type ChangeEvent } from 'react';
 import UploadApi from '../../services/uploadApi';
 
-export default function UploadImagem({ valor, onChange }: { valor: string; onChange: (url: string) => void }) {
+export default function UploadImagem({ valor, onChange, fundoEscuro = false }: { valor: string; onChange: (url: string) => void; fundoEscuro?: boolean }) {
   const [enviando, setEnviando] = useState(false);
   const [erro, setErro] = useState('');
 
@@ -26,7 +26,7 @@ export default function UploadImagem({ valor, onChange }: { valor: string; onCha
     <div>
       <div className="flex items-center gap-3">
         {valor ? (
-          <img src={valor} alt="Prévia" className="h-16 w-16 rounded-lg border-2 border-tinta object-cover" />
+          <img src={valor} alt="Prévia" className={`h-16 w-16 rounded-lg border-2 border-tinta ${fundoEscuro ? 'bg-azul object-contain p-1.5' : 'object-cover'}`} />
         ) : (
           <div className="flex h-16 w-16 items-center justify-center rounded-lg border-2 border-dashed border-tinta/40 text-xs text-neutral-400">sem foto</div>
         )}
