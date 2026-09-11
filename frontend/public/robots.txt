@@ -1,0 +1,6 @@
+# Grupo Zero 14 — grupozero14.com.br
+User-agent: *
+Allow: /
+Disallow: /admin
+
+Sitemap: https://grupozero14.com.br/sitemap.xml

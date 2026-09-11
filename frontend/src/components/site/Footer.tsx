@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function Footer() {
   return (
     <footer className="textura-giz relative overflow-hidden bg-azul px-6 py-6 text-white">
@@ -14,6 +16,9 @@ export default function Footer() {
             <strong className="block font-display text-lg text-white max-[560px]:text-[13px]">Nebula</strong>
           </div>
         </div>
+      </div>
+      <div className="relative z-[1] mt-4 text-center">
+        <Link to="/politica-de-privacidade" className="text-xs text-white/70 transition hover:text-white hover:underline">Política de Privacidade</Link>
       </div>
     </footer>
   );

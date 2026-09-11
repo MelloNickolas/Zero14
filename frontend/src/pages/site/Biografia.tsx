@@ -4,6 +4,8 @@ import Footer from '../../components/site/Footer';
 import IntegranteApi from '../../services/integranteApi';
 import ConfiguracaoApi from '../../services/configuracaoApi';
 import type { Integrante } from '../../services/types';
+import JsonLdBreadcrumb from '../../components/site/JsonLdBreadcrumb';
+import Seo from '../../components/site/Seo';
 
 const REDES = (
   <div className="flex gap-3.5 max-md:justify-center">
@@ -55,6 +57,8 @@ export default function Biografia() {
 
   return (
     <div className="bg-azul">
+      <Seo title="Biografia — Grupo Zero 14" description="Conheça a história e os integrantes do Grupo Zero 14, um dos grupos de pagode que mais cresce na região." path="/biografia" />
+      <JsonLdBreadcrumb itens={[{ nome: 'Início', url: 'https://grupozero14.com.br' }, { nome: 'Biografia', url: 'https://grupozero14.com.br/biografia' }]} />
       {/* ===== TOPBAR ===== */}
       <header className={`fixed inset-x-0 top-0 z-40 flex items-center justify-between px-6 py-3.5 transition-all ${solido ? 'bg-white shadow-[0_1px_12px_rgba(0,0,0,.1)]' : 'bg-transparent'}`}>
         <Link to="/" aria-label="Grupo Zero 14 - início"><img src={solido ? '/assets/logo-preta-nav.png' : '/assets/logo-branca-nav.png'} alt="Grupo Zero 14" className="h-[42px] w-auto" /></Link>
@@ -67,10 +71,10 @@ export default function Biografia() {
       {/* ===== BIOGRAFIA (imagem + texto) ===== */}
       <main className="relative">
         <picture>
-          <source media="(max-width:549px)" srcSet="/assets/biografia-assets/biografia-small-web.jpg" />
-          <source media="(max-width:760px)" srcSet="/assets/biografia-assets/biografia-mobile-web.jpg" />
-          <source media="(max-width:1024px)" srcSet="/assets/biografia-assets/biografia-tablet-web.jpg" />
-          <img src="/assets/biografia-assets/biografia-desktop-web.jpg" alt="Grupo Zero 14" className="block w-full" />
+          <source media="(max-width:549px)" srcSet="/assets/biografia-assets/Biografia-Small.webp" />
+          <source media="(max-width:760px)" srcSet="/assets/biografia-assets/Biografia-Mobile.webp" />
+          <source media="(max-width:1024px)" srcSet="/assets/biografia-assets/Biografia-Tablet.webp" />
+          <img src="/assets/biografia-assets/Biografia-Desktop.webp" alt="Grupo Zero 14" className="block w-full" />
         </picture>
 
         <div className="flex flex-col bg-azul px-6 py-11 text-white [background:#1E27EB_url('/assets/bg-blue-texture.jpg')_center/cover] md:absolute md:inset-y-0 md:right-0 md:h-full md:w-2/5 md:min-w-[360px] md:px-[clamp(30px,4vw,64px)] md:py-[20vh]">

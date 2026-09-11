@@ -9,6 +9,7 @@ import ComentarioApi from '../../services/comentarioApi';
 import MusicaApi from '../../services/musicaApi';
 import EstatisticaApi from '../../services/estatisticaApi';
 import PatrocinadorApi from '../../services/patrocinadorApi';
+import Seo from '../../components/site/Seo';
 import type { Evento, Foto, Configuracao, Comentario, Estatisticas, Patrocinador } from '../../services/types';
 
 const MESES = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
@@ -180,15 +181,16 @@ export default function Home() {
 
   return (
     <div className="bg-[#f4f5f7]">
+      <Seo title="Grupo Zero 14 — É no pagode do Zero 14" description="Site oficial do Grupo Zero 14, o melhor do pagode. Veja a agenda de shows, fotos, clipes e contrate o grupo pro seu evento!" path="/" />
       <Navbar variant="hero" />
 
       {/* ===== HERO ===== */}
       <section id="inicio" className="relative min-h-dvh" aria-label="Grupo Zero 14 - É no pagode do Zero 14">
         <picture>
-          <source media="(max-width:549px)" srcSet="/assets/Hero-Small.png" />
-          <source media="(max-width:749px)" srcSet="/assets/Hero-Mobile.png" />
-          <source media="(max-width:1024px)" srcSet="/assets/Hero-Tablet.png" />
-          <img src="/assets/Hero-Desktop.png" alt="Grupo Zero 14" className="absolute inset-0 h-full w-full object-cover" />
+          <source media="(max-width:549px)" srcSet="/assets/Hero-Small.webp" />
+          <source media="(max-width:749px)" srcSet="/assets/Hero-Mobile.webp" />
+          <source media="(max-width:1024px)" srcSet="/assets/Hero-Tablet.webp" />
+          <img src="/assets/Hero-Desktop.webp" alt="Grupo Zero 14" className="absolute inset-0 h-full w-full object-cover" />
         </picture>
       </section>
 
@@ -222,10 +224,10 @@ export default function Home() {
       {/* ===== ASSISTA AGORA ===== */}
       <section id="assista" className="relative flex min-h-dvh items-end justify-center overflow-hidden bg-azul pt-28 max-[749px]:items-start">
         <picture>
-          <source media="(max-width:549px)" srcSet="/assets/Video-Small.png" />
-          <source media="(max-width:749px)" srcSet="/assets/Video-Mobile.png" />
-          <source media="(max-width:1024px)" srcSet="/assets/Video-Tablet.png" />
-          <img src="/assets/Video-Desktop.png" alt="" className="absolute inset-0 h-full w-full object-cover object-bottom" />
+          <source media="(max-width:549px)" srcSet="/assets/Video-Small.webp" />
+          <source media="(max-width:749px)" srcSet="/assets/Video-Mobile.webp" />
+          <source media="(max-width:1024px)" srcSet="/assets/Video-Tablet.webp" />
+          <img src="/assets/Video-Desktop.webp" alt="" className="absolute inset-0 h-full w-full object-cover object-bottom" />
         </picture>
         {/* marquee inclinado (uma vazada, outra sólida) */}
         <div className="pointer-events-none absolute inset-x-[-8%] top-[70%] z-[1] -translate-y-1/2 -rotate-[5deg] overflow-hidden max-[749px]:top-[185px]">

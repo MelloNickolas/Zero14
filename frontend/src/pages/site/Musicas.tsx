@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import Navbar, { type NavItem } from '../../components/site/Navbar';
 import Footer from '../../components/site/Footer';
 import MusicaApi from '../../services/musicaApi';
+import JsonLdBreadcrumb from '../../components/site/JsonLdBreadcrumb';
+import Seo from '../../components/site/Seo';
 
 function idYoutube(v?: string): string {
   if (!v) return '7pOh3PVH8lE';
@@ -52,6 +54,8 @@ export default function Musicas() {
 
   return (
     <div className="bg-[#faf8f2]">
+      <Seo title="Músicas e Clipes — Grupo Zero 14" description="Ouça as músicas e assista aos clipes do Grupo Zero 14. Pagode de raiz no YouTube e no Spotify." path="/musicas" />
+      <JsonLdBreadcrumb itens={[{ nome: 'Início', url: 'https://grupozero14.com.br' }, { nome: 'Músicas', url: 'https://grupozero14.com.br/musicas' }]} />
       <Navbar variant="hero" heroRatio={0.5} esquerda={ESQUERDA} direita={DIREITA} />
 
       {/* ===== CABEÇALHO ===== */}

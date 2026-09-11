@@ -3,6 +3,8 @@ import Navbar, { type NavItem } from '../../components/site/Navbar';
 import Footer from '../../components/site/Footer';
 import EventoApi from '../../services/eventoApi';
 import ConfiguracaoApi from '../../services/configuracaoApi';
+import JsonLdBreadcrumb from '../../components/site/JsonLdBreadcrumb';
+import Seo from '../../components/site/Seo';
 
 const MESES = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 const ABREV = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
@@ -58,6 +60,8 @@ export default function Shows() {
 
   return (
     <div className="bg-[#faf8f2]">
+      <Seo title="Shows e Agenda — Grupo Zero 14" description="Confira a agenda de shows do Grupo Zero 14 e não perca o pagode pertinho de você. Garanta seu ingresso!" path="/shows" />
+      <JsonLdBreadcrumb itens={[{ nome: 'Início', url: 'https://grupozero14.com.br' }, { nome: 'Shows', url: 'https://grupozero14.com.br/shows' }]} />
       <Navbar variant="hero" heroRatio={0.5} esquerda={ESQUERDA} direita={DIREITA} />
 
       {/* ===== CABEÇALHO ===== */}

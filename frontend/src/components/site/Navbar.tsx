@@ -14,7 +14,7 @@ const ESQUERDA_PADRAO: NavItem[] = [
 const DIREITA_PADRAO: NavItem[] = [
   { label: 'Contato', to: '#contato', tipo: 'anchor' },
   { label: 'Feedbacks', to: '#feedbacks', tipo: 'anchor' },
-  { label: 'Portfolio', to: '#', tipo: 'ext', configKey: 'portfolio' },
+  { label: 'Portfólio', to: '#', tipo: 'ext', configKey: 'portfolio' },
 ];
 
 export default function Navbar({

@@ -1,6 +1,8 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import FotoApi from '../../services/fotoApi';
+import JsonLdBreadcrumb from '../../components/site/JsonLdBreadcrumb';
+import Seo from '../../components/site/Seo';
 
 export default function Galeria() {
   const [fotos, setFotos] = useState<string[]>([]);
@@ -27,6 +29,8 @@ export default function Galeria() {
 
   return (
     <div className="textura-giz relative min-h-dvh overflow-hidden bg-[#0b0b0d] text-white">
+      <Seo title="Galeria de Fotos — Grupo Zero 14" description="Fotos dos shows, bastidores e da resenha do Grupo Zero 14. Reviva os melhores momentos do pagode." path="/galeria" />
+      <JsonLdBreadcrumb itens={[{ nome: 'Início', url: 'https://grupozero14.com.br' }, { nome: 'Galeria', url: 'https://grupozero14.com.br/galeria' }]} />
       {/* ===== TOPBAR ===== */}
       <header className="sticky top-0 z-40 flex items-center justify-between border-b border-white/10 bg-[#0b0b0d]/90 px-6 py-4 backdrop-blur">
         <Link to="/" aria-label="Grupo Zero 14 - início"><img src="/assets/logo-branca-nav.png" alt="Grupo Zero 14" className="h-[42px] w-auto" /></Link>
