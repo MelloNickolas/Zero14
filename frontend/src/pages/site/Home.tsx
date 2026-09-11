@@ -181,7 +181,7 @@ export default function Home() {
 
   return (
     <div className="bg-[#f4f5f7]">
-      <Seo title="Grupo Zero 14 — É no pagode do Zero 14" description="Site oficial do Grupo Zero 14, o melhor do pagode. Veja a agenda de shows, fotos, clipes e contrate o grupo pro seu evento!" path="/" />
+      <Seo title="Grupo Zero 14" description="Site oficial do Grupo Zero 14, o melhor do pagode. Veja a agenda de shows, fotos, clipes e contrate o grupo pro seu evento!" path="/" />
       <Navbar variant="hero" />
 
       {/* ===== HERO ===== */}
