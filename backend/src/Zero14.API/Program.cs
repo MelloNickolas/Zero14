@@ -234,6 +234,7 @@ app.UseAuthorization();
 app.MapControllers();
 
 // health-check (público, sem tocar no banco) — usado pelo keep-alive (UptimeRobot)
-app.MapGet("/health", () => Results.Ok(new { status = "ok" }));
+// aceita GET e HEAD (o UptimeRobot usa HEAD por padrão)
+app.MapMethods("/health", new[] { "GET", "HEAD" }, () => Results.Ok(new { status = "ok" }));
 
 app.Run();
