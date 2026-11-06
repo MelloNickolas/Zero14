@@ -71,7 +71,7 @@ export default function AdminShows() {
             <tbody>
               {itens.map((ev) => (
                 <tr key={ev.id} className="border-b border-tinta/10 last:border-0">
-                  <td className="p-4 tabular-nums">{ev.data ? new Date(ev.data).toLocaleDateString('pt-BR') : '—'}</td>
+                  <td className="p-4 tabular-nums">{ev.data ? new Date(ev.data).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' }).replace(',', ' às') : '—'}</td>
                   <td className="p-4 font-medium">{ev.nomeEvento}</td>
                   <td className="p-4">{ev.cidade} — {ev.uf}</td>
                   <td className="p-4 text-right whitespace-nowrap">

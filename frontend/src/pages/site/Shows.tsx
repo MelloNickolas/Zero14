@@ -9,7 +9,7 @@ import Seo from '../../components/site/Seo';
 const MESES = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 const ABREV = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 
-type ShowItem = { dia: string; mesAbrev: string; evento: string; cidade: string; dataBR: string; temIngresso: boolean };
+type ShowItem = { dia: string; mesAbrev: string; evento: string; cidade: string; dataBR: string; hora: string; temIngresso: boolean };
 type Grupo = { titulo: string; shows: ShowItem[] };
 
 const ESQUERDA: NavItem[] = [
@@ -38,7 +38,7 @@ export default function Shows() {
         for (const e of futuros) {
           const d = new Date(e.data);
           const chave = `${MESES[d.getMonth()]} ${d.getFullYear()}`;
-          const item: ShowItem = { dia: String(d.getDate()).padStart(2, '0'), mesAbrev: ABREV[d.getMonth()], evento: e.nomeEvento, cidade: `${e.cidade} — ${e.uf}`, dataBR: d.toLocaleDateString('pt-BR'), temIngresso: !!e.linkIngresso?.trim() };
+          const item: ShowItem = { dia: String(d.getDate()).padStart(2, '0'), mesAbrev: ABREV[d.getMonth()], evento: e.nomeEvento, cidade: `${e.cidade} — ${e.uf}`, dataBR: d.toLocaleDateString('pt-BR'), hora: d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), temIngresso: !!e.linkIngresso?.trim() };
           map.set(chave, [...(map.get(chave) ?? []), item]);
         }
         setGrupos([...map.entries()].map(([titulo, shows]) => ({ titulo, shows })));
@@ -112,6 +112,10 @@ export default function Shows() {
                         <div className="mt-1.5 flex items-center gap-1.5 text-[12.5px] uppercase tracking-wide opacity-80">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className={par ? 'text-amarelo' : 'text-azul'}><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" /></svg>
                           {s.cidade}
+                        </div>
+                        <div className="mt-1 flex items-center gap-1.5 text-[12.5px] font-semibold uppercase tracking-wide opacity-80">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className={par ? 'text-amarelo' : 'text-azul'} aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+                          {s.hora}
                         </div>
                       </div>
                       <div className="max-[680px]:[grid-area:cta]">

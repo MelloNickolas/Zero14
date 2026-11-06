@@ -20,7 +20,7 @@ function idYoutube(v?: string): string {
   return m ? m[1] : v;
 }
 
-type ShowCard = { mes: string; evento: string; dia: string; uf: string; cidade: string };
+type ShowCard = { mes: string; evento: string; dia: string; uf: string; cidade: string; hora: string };
 const RECADOS_EXEMPLO_A = [
   { mensagem: 'Show sensacional em São Paulo! Já quero o próximo.', nome: 'João P.' },
   { mensagem: 'Melhor pagode que já vi ao vivo!', nome: 'Mariana S.' },
@@ -153,7 +153,7 @@ export default function Home() {
   const agenda: ShowCard[] = eventos
     .filter((ev) => new Date(ev.data) >= inicioHoje)
     .sort((a, b) => +new Date(a.data) - +new Date(b.data))
-    .map((ev) => { const d = new Date(ev.data); return { mes: MESES[d.getMonth()], evento: ev.nomeEvento, dia: String(d.getDate()).padStart(2, '0'), uf: ev.uf, cidade: ev.cidade }; });
+    .map((ev) => { const d = new Date(ev.data); return { mes: MESES[d.getMonth()], evento: ev.nomeEvento, dia: String(d.getDate()).padStart(2, '0'), uf: ev.uf, cidade: ev.cidade, hora: d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }) }; });
   const listaFotos = fotos.map((f) => f.url);
   const temRecados = recados.length > 0;
   const recA = temRecados ? recados.map((r) => ({ mensagem: r.mensagem, nome: r.nome })) : RECADOS_EXEMPLO_A;
@@ -323,6 +323,10 @@ export default function Home() {
                     <div className="mt-4 border-t-2 border-dashed border-white/40 pt-3.5">
                       <div className="font-display text-3xl leading-none">{ev.uf}</div>
                       <div className="mt-1.5 flex items-center gap-1.5 text-xs uppercase tracking-wide text-white/85"><Pin /> {ev.cidade}</div>
+                      <div className="mt-1 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide text-white/85">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className="text-amarelo" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+                        {ev.hora}
+                      </div>
                     </div>
                   </div>
                 ))}
