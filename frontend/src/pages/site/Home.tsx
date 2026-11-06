@@ -244,8 +244,8 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="relative z-[2] mb-[5%] flex w-full flex-col items-center gap-6 px-6">
-          <div className="aspect-video w-full max-w-[540px] overflow-hidden rounded-2xl border-[3px] border-tinta bg-black shadow-[0_20px_50px_rgba(0,0,0,.35)] max-[749px]:max-w-[260px]">
+        <div className="relative z-[2] mb-[50px] flex w-full flex-col items-center gap-5 px-6">
+          <div className="aspect-video w-full max-w-[420px] overflow-hidden rounded-2xl border-[3px] border-tinta bg-black shadow-[0_20px_50px_rgba(0,0,0,.35)] max-[749px]:max-w-[260px]">
             {videoAberto ? (
               <iframe className="h-full w-full" src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`} title="Grupo Zero 14" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
             ) : (
@@ -257,8 +257,8 @@ export default function Home() {
               </button>
             )}
           </div>
-          <Link to="/musicas" className="inline-flex -rotate-1 items-center gap-2.5 rounded-[14px_22px_14px_20px] border-[3px] border-tinta bg-amarelo px-7 py-3 font-display text-xl uppercase text-tinta shadow-[5px_5px_0_var(--color-tinta)] transition hover:rotate-0 hover:-translate-y-0.5">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" /></svg>
+          <Link to="/musicas" className="inline-flex -rotate-1 items-center gap-2.5 rounded-[14px_22px_14px_20px] border-[3px] border-tinta bg-amarelo px-5 py-2 font-display text-base uppercase text-tinta shadow-[4px_4px_0_var(--color-tinta)] transition hover:rotate-0 hover:-translate-y-0.5">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18V5l12-2v13" /><circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" /></svg>
             Ver todas as músicas
           </Link>
         </div>
