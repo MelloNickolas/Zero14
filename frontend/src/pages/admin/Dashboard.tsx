@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 const CARDS = [
   { to: '/admin/shows', titulo: 'Shows', desc: 'Cadastre e edite a agenda de shows.' },
   { to: '/admin/fotos', titulo: 'Fotos', desc: 'Suba e organize a galeria.' },
+  { to: '/admin/registros', titulo: 'Registros', desc: 'Cards do "Você no Zero 14" com link do drive.' },
   { to: '/admin/musicas', titulo: 'Músicas', desc: 'Clipes e vídeos do grupo.' },
   { to: '/admin/integrantes', titulo: 'Integrantes', desc: 'Membros, fotos e depoimentos.' },
   { to: '/admin/recados', titulo: 'Recados', desc: 'Aprove ou recuse os recados dos fãs.' },

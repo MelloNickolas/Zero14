@@ -21,6 +21,16 @@ export interface Evento {
   linkIngresso?: string;
 }
 
+export interface Registro {
+  id: number;
+  capaUrl: string;
+  data: string; // ISO
+  local: string;
+  cidade: string;
+  uf: string;
+  linkDrive: string;
+}
+
 export interface Foto {
   id: number;
   url: string;

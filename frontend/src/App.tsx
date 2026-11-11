@@ -4,12 +4,14 @@ import Shows from './pages/site/Shows';
 import Musicas from './pages/site/Musicas';
 import Galeria from './pages/site/Galeria';
 import Biografia from './pages/site/Biografia';
+import VoceNoZero14 from './pages/site/VoceNoZero14';
 import AdminLogin from './pages/admin/Login';
 import AdminLayout from './components/admin/AdminLayout';
 import AdminDashboard from './pages/admin/Dashboard';
 import AdminShows from './pages/admin/Shows';
 import AdminMusicas from './pages/admin/Musicas';
 import AdminFotos from './pages/admin/Fotos';
+import AdminRegistros from './pages/admin/Registros';
 import AdminIntegrantes from './pages/admin/Integrantes';
 import AdminPatrocinadores from './pages/admin/Patrocinadores';
 import AdminRecados from './pages/admin/Recados';
@@ -30,6 +32,7 @@ export default function App() {
       <Route path="/musicas" element={<Musicas />} />
       <Route path="/galeria" element={<Galeria />} />
       <Route path="/biografia" element={<Biografia />} />
+      <Route path="/voce-no-zero14" element={<VoceNoZero14 />} />
       <Route path="/politica-de-privacidade" element={<PoliticaPrivacidade />} />
 
       {/* ===== Painel administrativo ===== */}
@@ -45,6 +48,7 @@ export default function App() {
         <Route index element={<AdminDashboard />} />
         <Route path="shows" element={<AdminShows />} />
         <Route path="fotos" element={<AdminFotos />} />
+        <Route path="registros" element={<AdminRegistros />} />
         <Route path="musicas" element={<AdminMusicas />} />
         <Route path="integrantes" element={<AdminIntegrantes />} />
         <Route path="patrocinadores" element={<AdminPatrocinadores />} />

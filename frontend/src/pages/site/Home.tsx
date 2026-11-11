@@ -372,6 +372,25 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ===== VOCÊ NO ZERO 14 ===== */}
+      <section id="voce-no-zero14" className="textura-giz relative overflow-hidden bg-[#0b0b0d] px-6 pb-[clamp(56px,9vw,96px)] pt-[clamp(24px,4vw,48px)] text-white">
+        <div className="relative z-[1] mx-auto grid max-w-[1060px] items-center gap-10 md:grid-cols-[1.3fr_1fr] md:gap-14">
+          <div className="text-center md:text-left">
+            <span className="block text-[clamp(18px,2.4vw,26px)] font-semibold uppercase tracking-[3px] text-amarelo">Você no</span>
+            <h2 className="mt-3 whitespace-nowrap font-display text-[clamp(52px,9vw,104px)] uppercase leading-[.9]">Zero 14</h2>
+            <svg viewBox="0 0 300 14" preserveAspectRatio="none" aria-hidden="true" className="mx-auto mt-3 block h-4 w-[min(260px,60%)] md:mx-0"><path d="M3 9 C 45 2, 78 12, 118 7 S 196 2, 234 8 S 286 5, 297 7" fill="none" stroke="#F5C518" strokeWidth="5" strokeLinecap="round" /></svg>
+            <p className="mx-auto mt-5 max-w-[520px] text-[17px] leading-relaxed text-white/85 md:mx-0">Esteve em um show nosso? Sua foto e seu vídeo podem estar por aqui. A gente reuniu os <strong className="text-white">links com os registros de cada show</strong> — é só achar o seu e reviver a noite.</p>
+            <Link to="/voce-no-zero14" className="group mt-8 inline-flex items-center gap-2.5 -rotate-1 rounded-[16px_26px_16px_22px] border-[3px] border-tinta bg-amarelo px-8 py-3.5 font-display text-xl uppercase text-tinta shadow-[6px_6px_0_var(--color-azul)] transition hover:rotate-0 hover:-translate-y-0.5 hover:bg-[#ffd43b]">
+              Encontre você
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-1"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+            </Link>
+          </div>
+          <div className="flex justify-center">
+            <img src="/assets/logo-branca-grande.webp" alt="Grupo Zero 14" width={700} height={508} loading="lazy" className="w-[min(300px,70%)] -rotate-2 drop-shadow-[6px_6px_0_rgba(30,39,235,.65)] md:w-full md:max-w-[360px]" />
+          </div>
+        </div>
+      </section>
+
       {/* ===== CONTATO ===== */}
       <section id="contato" className="textura-giz relative overflow-hidden bg-gradient-to-b from-white to-[#f3f3f6] px-6 pb-[84px] pt-[78px]">
         <div className="relative z-[1] mx-auto max-w-[1140px]">

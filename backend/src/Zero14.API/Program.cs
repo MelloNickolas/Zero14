@@ -40,6 +40,7 @@ builder.Services.AddScoped<IConfiguracaoRepository, ConfiguracaoRepository>();
 builder.Services.AddScoped<IIntegranteRepository, IntegranteRepository>();
 builder.Services.AddScoped<IEstatisticaRepository, EstatisticaRepository>();
 builder.Services.AddScoped<IPatrocinadorRepository, PatrocinadorRepository>();
+builder.Services.AddScoped<IRegistroRepository, RegistroRepository>();
 
 // ===================== APPLICATIONS =====================
 builder.Services.AddScoped<IUsuarioApplication, UsuarioApplication>();
@@ -51,6 +52,7 @@ builder.Services.AddScoped<IConfiguracaoApplication, ConfiguracaoApplication>();
 builder.Services.AddScoped<IIntegranteApplication, IntegranteApplication>();
 builder.Services.AddScoped<IEstatisticaApplication, EstatisticaApplication>();
 builder.Services.AddScoped<IPatrocinadorApplication, PatrocinadorApplication>();
+builder.Services.AddScoped<IRegistroApplication, RegistroApplication>();
 builder.Services.AddScoped<IAutenticacaoApplication, AutenticacaoApplication>();
 
 // ===================== SERVICES (infra) =====================

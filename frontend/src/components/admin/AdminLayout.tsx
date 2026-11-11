@@ -6,6 +6,7 @@ const SECOES = [
   { to: '/admin', label: 'Início', fim: true },
   { to: '/admin/shows', label: 'Shows' },
   { to: '/admin/fotos', label: 'Fotos' },
+  { to: '/admin/registros', label: 'Registros' },
   { to: '/admin/musicas', label: 'Músicas' },
   { to: '/admin/integrantes', label: 'Integrantes' },
   { to: '/admin/patrocinadores', label: 'Patrocinadores' },
